@@ -1,0 +1,55 @@
+sistema-biblioteca-java/
+│
+├── README.md
+├── .gitignore
+│
+├── data/
+│   ├── livros.txt
+│   ├── usuarios.txt
+│   ├── admins.txt
+│   ├── emprestimos.txt
+│   └── historico.txt
+│
+└── src/
+    └── main/
+        └── java/
+            └── br/
+                └── com/
+                    └── biblioteca/
+                        │
+                        ├── Main.java
+                        │
+                        ├── model/
+                        │   ├── Livro.java
+                        │   ├── Usuario.java
+                        │   ├── Admin.java
+                        │   ├── Emprestimo.java
+                        │   ├── TipoUsuario.java
+                        │   ├── StatusEmprestimo.java
+                        │   └── CategoriaLivro.java
+                        │
+                        ├── service/
+                        │   ├── BibliotecaService.java
+                        │   ├── LivroService.java
+                        │   ├── UsuarioService.java
+                        │   └── EmprestimoService.java
+                        │
+                        ├── repository/
+                        │   └── ArquivoRepository.java
+                        │
+                        ├── menu/
+                        │   ├── MenuPrincipal.java
+                        │   ├── MenuAdmin.java
+                        │   └── MenuUsuario.java
+                        │
+                        ├── exception/
+                        │   ├── LivroNaoEncontradoException.java
+                        │   ├── UsuarioNaoEncontradoException.java
+                        │   ├── LoginInvalidoException.java
+                        │   ├── EmprestimoInvalidoException.java
+                        │   └── ValidacaoException.java
+                        │
+                        └── util/
+                            ├── EntradaUtil.java
+                            ├── DataUtil.java
+                            └── GeradorIdUtil.java
