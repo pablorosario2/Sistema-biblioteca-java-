@@ -1,12 +1,9 @@
-package main.java.br.com.biblioteca.validacao;
+package validacao;
 
-import main.java.br.com.biblioteca.model.Livro;
+import model.Livro;
 
 public class ValidarLivro {
     public void validarLivro(Livro livro) {
-
-        ;
-        ;
 
         if (livro.getTitulo() == null || livro.getTitulo().trim().isEmpty()) {
             throw new IllegalArgumentException("O título é obrigatório.");
@@ -16,12 +13,20 @@ public class ValidarLivro {
             throw new IllegalArgumentException("O autor é obrigatório.");
         }
 
-        if (livro.getQuantidadeTotal() <= 0) {
+        if (String.valueOf(livro.getAnoLancamento()).length() != 4) {
+            System.out.println("O ano deve ter 4 dígitos");
+        }
+
+        if (livro.getQuantidadeTotal() < 0) {
             throw new IllegalArgumentException("Quantidade total inválida.");
         }
 
         if (livro.getQuantidadeDisponivel() < 0 || livro.getQuantidadeDisponivel() < livro.getQuantidadeTotal()) {
             throw new IllegalArgumentException("Quantidade disponível inválida.");
         }
+
+        
+
+
     }
 }

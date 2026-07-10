@@ -1,52 +1,136 @@
-package main.java.br.com.biblioteca.service;
-
-import main.java.br.com.biblioteca.model.Livro;
-import main.java.br.com.biblioteca.validacao.ValidarLivro;
-
+package service;
+import model.Livro;
+import validacao.ValidarLivro;
 import java.util.ArrayList;
+import enums.CategoriaLivro;
 
 public class LivroService {
     private ArrayList<Livro> livros = new ArrayList<>();
-    ValidarLivro validador = new ValidarLivro();
+    private ValidarLivro validador = new ValidarLivro();
 
-    public void cadastrarLivro(int id, String titulo, String autor, int anoLancamento, String isbn, int quantidadeTotal, int quantidadeDisponivel) {
+    public void cadastrarLivro(int id,
+            String titulo,
+            String autor,
+            int anoLancamento,
+            CategoriaLivro categoria,
+            String isbn,
+            int quantidadeTotal,
+            int quantidadeDisponivel) {
 
-        Livro livro = new Livro(id, titulo, autor, anoLancamento, isbn, quantidadeTotal, quantidadeDisponivel);
-
+        Livro livro = new Livro(id,
+                titulo,
+                autor,
+                anoLancamento,
+                categoria,
+                isbn,
+                quantidadeTotal,
+                quantidadeDisponivel);
 
         validador.validarLivro(livro);
+        validarIdDuplicado(id);
+        validarLivroDuplicado(id, titulo, isbn);
 
         livros.add(livro);
 
         System.out.println("Livro cadastrado com sucesso!");
     }
-}
 
+    public void listarLivros() {
 
-public void listarLivros() {
-    System.out.println("Listando todos os livros.");
-    System.out.println(toString(livros));
-}
+        if (livros.isEmpty()) {
+            System.out.println("Nenhum livro cadastrado!");
+            return;
+        }
 
-void listarLivrosDisponiveis() {
+        System.out.println("Listando todos os livros.");
+        for (Livro livro : livros) {
+            System.out.println("-------------------");
+            System.out.println(livro);
+            System.out.println("-------------------");
+        }
+    }
 
-}
+    public void listarLivrosDisponiveis() {
+        System.out.println("Listando todos os livros disponíveis.");
 
-void buscarLivroPorId() {
+        boolean encontrou = false;
 
-}
+        for (Livro livro : livros) {
+            if (livro.getQuantidadeDisponivel() > 0) {
+                System.out.println("-------------------");
+                System.out.println(livro);
+                System.out.println("-------------------");
 
-void buscarLivroPorTitulo() {
+                encontrou = true;
+            }
+        }
 
-}
+        if (!encontrou) {
+            System.out.println("Nenhum livro disponível!");
+        }
+    }
 
-void validarLivroDuplicado() {
+    public void buscarLivroPorId(int id) {
+        for (Livro livro : livros) {
+            if (livro.getId() == id) {
+                System.out.println("-------------------");
+                System.out.println(livro);
+                System.out.println("-------------------");
+                return;
+            } else {
+                System.out.println("Nenhum livro encontrado");
+            }
+        }
 
-}
+    }
 
-void atualizarQuantidadeDisponivel() {
+    public void buscarLivroPorTitulo(String titulo) {
+        for (Livro livro : livros) {
+            if (livro.getTitulo().equalsIgnoreCase(titulo)) {
+                System.out.println("-------------------");
+                System.out.println(livro);
+                System.out.println("-------------------");
+                return;
+            }
+        }
 
-}
+    }
 
+    public void validarIdDuplicado(int id) {
+        for (Livro livro : livros) {
+            if (livro.getId() == id) {
+                throw new IllegalArgumentException( "Já existe um livro cadastrado com o ID " + id);
+            }
+        }
+    }
+
+        public Livro validarLivroDuplicado(int id, String titulo, String isbn) {
+        for (Livro livro : livros) {
+            if (livro.getId() == id || livro.getTitulo().equalsIgnoreCase(titulo) || livro.getIsbn().equals(isbn)) {
+                System.out.println("Ja existe um livro com essa informações");
+                return livro;
+            }
+           
+        } return null;
+    }
+
+    public void atualizarQuantidadeDisponivel(int id, int quantidadeDisponivel) {
+        for (Livro livro : livros) {
+            if (livro.getId() == id) {
+                System.out.println("-------------------");
+                System.out.println(livro);
+                System.out.println("-------------------");
+                livro.setQuantidadeDisponivel(quantidadeDisponivel);
+                System.out.println("Quantidade disponivel atualziada: ");
+                System.out.println("-------------------");
+                System.out.println(livro);
+                System.out.println("-------------------");
+                return;
+            } else {
+                System.out.println("Nenhum livro encontrado");
+            }
+        }
+
+    }
 
 }

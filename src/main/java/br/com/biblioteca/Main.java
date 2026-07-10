@@ -1,11 +1,10 @@
-package main.java.br.com.biblioteca;
-/*
-- Iniciar o sistema
-- Criar os objetos principais
-- Chamar o MenuPrincipal
- */
-public class Main {
-    public static void main() {
+import service.LivroService;
 
+public class Main {
+
+    public static void main(String[] args) {
+        LivroService livroService = new LivroService();
+
+        livroService.listarLivros();
     }
 }

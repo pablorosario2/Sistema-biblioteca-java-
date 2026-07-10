@@ -1,4 +1,4 @@
-package main.java.br.com.biblioteca.enums;
+package enums;
 
 public enum CategoriaLivro {
         ROMANCE,

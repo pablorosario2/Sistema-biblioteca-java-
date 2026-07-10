@@ -1,8 +1,7 @@
-package main.java.br.com.biblioteca.model;
+package model;
 
-import main.java.br.com.biblioteca.enums.CategoriaLivro;
+import enums.CategoriaLivro;
 
-import java.util.ArrayList;
 public class Livro {
     private int id;
     private String titulo;
@@ -16,7 +15,16 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(int id, String titulo, String autor, int anoLancamento, String isbn, int quantidadeTotal, int quantidadeDisponivel) {
+    public Livro(
+            int id,
+            String titulo,
+            String autor,
+            int anoLancamento,
+            CategoriaLivro categoria,
+            String isbn,
+            int quantidadeTotal,
+            int quantidadeDisponivel) {
+
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -35,7 +43,6 @@ public class Livro {
         System.out.println("Categoria: " + this.categoria);
         System.out.println("Quantidade de livros: " + this.quantidadeDisponivel);
         System.out.println("ISBN: " + this.isbn);
-
 
     }
 
