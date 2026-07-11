@@ -1,20 +1,22 @@
 package model;
 
-public class Admin extends Usuario {
+import enums.TipoUsuario;
+
+
+public class Admin extends model.Usuario {
     public Admin(
             int id,
             String nome,
             String cpf,
             String login,
-            String senha,
-            TipoUsuario tipoUsuario) {
+            String senha) {
         super(
                 id,
                 nome,
                 cpf,
                 login,
                 senha,
-                enums.TipoUsuario admin);
+                TipoUsuario.ADMIN);
     }
 
 }

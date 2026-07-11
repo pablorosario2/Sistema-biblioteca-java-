@@ -21,8 +21,7 @@ public class Usuario {
             String login,
             String senha,
             TipoUsuario tipoUsuario,
-            int limiteEmprestimo,
-            enums.TipoUsuario user) {
+            int limiteEmprestimo) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -30,6 +29,9 @@ public class Usuario {
         this.senha = senha;
         this.tipoUsuario = tipoUsuario;
         this.limiteEmprestimo = limiteEmprestimo;
+    }
+
+    public Usuario(int id, String nome, String cpf, String login, String senha, enums.TipoUsuario tipoUsuario) {
     }
 
     public void mostrarUsuario() {
