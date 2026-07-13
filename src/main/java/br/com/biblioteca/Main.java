@@ -1,5 +1,5 @@
-import service.LivroService;
-import service.UsuarioService;
+import main.java.br.com.biblioteca.service.LivroService;
+import main.java.br.com.biblioteca.service.UsuarioService;
 
 public class Main {
 

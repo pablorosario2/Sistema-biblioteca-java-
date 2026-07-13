@@ -23,6 +23,10 @@ public class LivroService {
         System.out.println("Livro cadastrado com sucesso!");
     }
 
+    public ArrayList<Livro> getLivros() {
+        return livros;
+    }
+
     public void listarLivros() {
 
         if (livros.isEmpty()) {

@@ -2,12 +2,11 @@ package main.java.br.com.biblioteca.validacao;
 
 import enums.TipoUsuario;
 import main.java.br.com.biblioteca.service.*;
-import main.java.br.com.biblioteca.validacao.*;
 
 public class ValidarUsuario {
-    private service.UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
-    public void validarLogin(String login, String senha) {
+    public boolean validarLogin(String login, String senha) {
         for (model.Usuario usuario : usuarioService.getUsuarios()) {
             if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha) ) {
                 System.out.println("Usuario ja existe");
@@ -16,8 +15,10 @@ public class ValidarUsuario {
                 System.out.println("-------------------");
                 throw new IllegalArgumentException("");
             } else {
+                return true;
             }
         }
+        return false;
     }
 
     public void validarLoginDuplicado(String login) {

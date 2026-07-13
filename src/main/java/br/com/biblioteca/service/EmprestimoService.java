@@ -30,7 +30,6 @@ public class EmprestimoService {
         Emprestimo.add(emprestimo);
         repository.salvarEmprestimos(Emprestimo);
         System.out.println("Emprestimo cadastrado com sucesso!");
-
     }
 
     public void listarEmprestimo() {
