@@ -1,36 +1,24 @@
-package service;
+package main.java.br.com.biblioteca.service;
 import model.Livro;
 import validacao.ValidarLivro;
+
 import java.util.ArrayList;
+
 import enums.CategoriaLivro;
 
 public class LivroService {
+    private repository.ArquivoRepository repository = new repository.ArquivoRepository();
     private ArrayList<Livro> livros = new ArrayList<>();
-    private ValidarLivro validador = new ValidarLivro();
+    private ValidarLivro validarLivro = new ValidarLivro();
 
-    public void cadastrarLivro(int id,
-            String titulo,
-            String autor,
-            int anoLancamento,
-            CategoriaLivro categoria,
-            String isbn,
-            int quantidadeTotal,
-            int quantidadeDisponivel) {
+    public void cadastrarLivro(int id, String titulo, String autor, int anoLancamento, CategoriaLivro categoria, String isbn, int quantidadeTotal, int quantidadeDisponivel) {
 
-        Livro livro = new Livro(id,
-                titulo,
-                autor,
-                anoLancamento,
-                categoria,
-                isbn,
-                quantidadeTotal,
-                quantidadeDisponivel);
+        Livro livro = new Livro(id, titulo, autor, anoLancamento, categoria, isbn, quantidadeTotal, quantidadeDisponivel);
 
-        validador.validarLivro(livro);
-        validarIdDuplicado(id);
-        validarLivroDuplicado(id, titulo, isbn);
+        verificacoesNecessariasLivro(livro, id, titulo, isbn);
 
         livros.add(livro);
+        repository.salvarLivros(livros);
 
         System.out.println("Livro cadastrado com sucesso!");
     }
@@ -99,19 +87,20 @@ public class LivroService {
     public void validarIdDuplicado(int id) {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
-                throw new IllegalArgumentException( "Já existe um livro cadastrado com o ID " + id);
+                throw new IllegalArgumentException("Já existe um livro cadastrado com o ID " + id);
             }
         }
     }
 
-        public Livro validarLivroDuplicado(int id, String titulo, String isbn) {
+    public Livro validarLivroDuplicado(int id, String titulo, String isbn) {
         for (Livro livro : livros) {
             if (livro.getId() == id || livro.getTitulo().equalsIgnoreCase(titulo) || livro.getIsbn().equals(isbn)) {
                 System.out.println("Ja existe um livro com essa informações");
                 return livro;
             }
-           
-        } return null;
+
+        }
+        return null;
     }
 
     public void atualizarQuantidadeDisponivel(int id, int quantidadeDisponivel) {
@@ -131,6 +120,13 @@ public class LivroService {
             }
         }
 
+    }
+
+
+    private void verificacoesNecessariasLivro(Livro livro, int id, String titulo, String isbn) {
+        validarLivro.validarLivro(livro);
+        validarIdDuplicado(id);
+        validarLivroDuplicado(id, titulo, isbn);
     }
 
 }

@@ -110,4 +110,18 @@ public class Livro {
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
 
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", anoLancamento=" + anoLancamento +
+                ", categoria=" + categoria +
+                ", isbn='" + isbn + '\'' +
+                ", quantidadeTotal=" + quantidadeTotal +
+                ", quantidadeDisponivel=" + quantidadeDisponivel +
+                '}';
+    }
 }

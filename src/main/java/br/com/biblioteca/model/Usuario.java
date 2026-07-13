@@ -99,4 +99,16 @@ public class Usuario {
         this.limiteEmprestimo = limiteEmprestimo;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", tipoUsuario=" + tipoUsuario +
+                ", limiteEmprestimo=" + limiteEmprestimo +
+                '}';
+    }
 }

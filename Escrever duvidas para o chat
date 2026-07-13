@@ -1,0 +1,17 @@
+   isso aqui
+
+    public void verificacõesNescessaria(String login, String senha, String cpf, enums.TipoUsuario tipoUsuario){
+        ValidarUsuario.validarLogin(login, senha);
+        ValidarUsuario.validarLoginDuplicado(login);
+        ValidarUsuario.validarCpfDuplicado(cpf);
+        ValidarUsuario.verificarTipoUsuario(tipoUsuario);
+    };
+
+verificacõesNescessaria(login, senha, cpf,tipoUsuario);
+
+é a mesma coisa que isso aqui
+
+      ValidarUsuario.validarLogin(login, senha);
+        ValidarUsuario.validarLoginDuplicado(login);
+        ValidarUsuario.validarCpfDuplicado(cpf);
+        ValidarUsuario.verificarTipoUsuario(tipoUsuario);

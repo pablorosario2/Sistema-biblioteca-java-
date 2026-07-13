@@ -1,6 +1,8 @@
 package main.java.br.com.biblioteca.validacao;
 
 import enums.TipoUsuario;
+import main.java.br.com.biblioteca.service.*;
+import main.java.br.com.biblioteca.validacao.*;
 
 public class ValidarUsuario {
     private service.UsuarioService usuarioService;
@@ -47,6 +49,7 @@ public class ValidarUsuario {
     public void verificarTipoUsuario(enums.TipoUsuario tipoUsuario){
         tipoUsuario = TipoUsuario.USER;
     }
+
 
 
 }

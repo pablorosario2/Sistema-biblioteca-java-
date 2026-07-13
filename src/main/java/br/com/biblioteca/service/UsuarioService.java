@@ -1,16 +1,19 @@
-package service;
+package main.java.br.com.biblioteca.service;
 
 
 import java.util.ArrayList;
 
+import main.java.br.com.biblioteca.validacao.ValidarUsuario;
 import enums.TipoUsuario;
 import model.Admin;
 import model.Usuario;
-import validacao.ValidarUsuario;
+
 
 public class UsuarioService {
+    private repository.ArquivoRepository repository = new repository.ArquivoRepository();
     private ArrayList<Usuario> usuarios = new ArrayList<>();
     private ArrayList<Admin> admins = new ArrayList<>();
+    public ValidarUsuario ValidarUsuario = new ValidarUsuario();
 
     public void cadastrarUsuario(int id,
                                  String nome,
@@ -27,11 +30,15 @@ public class UsuarioService {
                 senha,
                 tipoUsuario,
                 limiteEmprestimo);
-        validarLogin();
+
+
+
+        verificacoesNecessarias(nome, login, senha, cpf,tipoUsuario);
 
 
 
         usuarios.add(usuario);
+        repository.salvarUsuarios(usuarios);
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
@@ -39,13 +46,17 @@ public class UsuarioService {
                                String nome,
                                String cpf,
                                String login,
-                               String senha) {
+                               String senha,
+                               TipoUsuario tipoUsuario) {
 
         Admin admin = new Admin(id,
                 nome,
                 cpf,
                 login,
-                senha);
+                senha
+                );
+        verificacoesNecessarias(nome, login, senha, cpf, tipoUsuario);
+
         admins.add(admin);
         System.out.println("Admin cadastrado com sucesso!");
     }
@@ -64,10 +75,10 @@ public class UsuarioService {
             return;
         }
         for (model.Usuario usuario : usuarios) {
-        }
+
         System.out.println("-------------------");
         System.out.println(usuarios);
-        System.out.println("-------------------");
+        System.out.println("-------------------"); }
     }
 
     public void buscarUsuarioPorId(int id) {
@@ -96,6 +107,17 @@ public class UsuarioService {
         }
     }
 
+    public void verificacoesNecessarias(String nome, String login, String senha, String cpf, enums.TipoUsuario tipoUsuario){
+
+        if (nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode estar vazio");
+        }
+
+        ValidarUsuario.validarLogin(login, senha);
+        ValidarUsuario.validarLoginDuplicado(login);
+        ValidarUsuario.validarCpfDuplicado(cpf);
+        ValidarUsuario.verificarTipoUsuario(tipoUsuario);
+    };
 
 
 }
