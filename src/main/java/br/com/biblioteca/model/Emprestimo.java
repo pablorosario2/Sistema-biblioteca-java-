@@ -2,13 +2,15 @@ package main.java.br.com.biblioteca.model;
 
 import main.java.br.com.biblioteca.enums.StatusEmprestimo;
 
+import java.time.LocalDate;
+
 public class Emprestimo {
     private int id;
     private int idUsuario;
     private int idLivro;
-    private String dataEmprestimo;
-    private String dataPrevistaDevolucao;
-    private String dataDevolucao;
+    private LocalDate dataEmprestimo;
+    private LocalDate dataPrevistaDevolucao;
+    private LocalDate dataDevolucao;
     private StatusEmprestimo statusEmprestimo;
 
     public Emprestimo() {
@@ -17,9 +19,9 @@ public class Emprestimo {
     public Emprestimo(int id,
             int idUsuario,
             int idLivro,
-            String dataEmprestimo,
-            String dataPrevistaDevolucao,
-            String dataDevolucao,
+                      LocalDate dataEmprestimo,
+                      LocalDate dataPrevistaDevolucao,
+                      LocalDate dataDevolucao,
             StatusEmprestimo statusEmprestimo) {
 
         this.id = id;
@@ -56,27 +58,27 @@ public class Emprestimo {
         this.idLivro = idLivro;
     }
 
-    public String getDataEmprestimo() {
+    public LocalDate getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(String dataEmprestimo) {
+    public void setDataEmprestimo(LocalDate dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public String getDataPrevistaDevolucao() {
+    public LocalDate getDataPrevistaDevolucao() {
         return dataPrevistaDevolucao;
     }
 
-    public void setDataPrevistaDevolucao(String dataPrevistaDevolucao) {
+    public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
     }
 
-    public String getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(String dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 

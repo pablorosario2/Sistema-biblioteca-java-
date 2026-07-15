@@ -81,17 +81,14 @@ public class UsuarioService {
         System.out.println("-------------------"); }
     }
 
-    public void buscarUsuarioPorId(int id) {
+    public Usuario buscarUsuarioPorId(int id) {
         for (model.Usuario usuario : usuarios) {
             if (usuario.getId() == id) {
-                System.out.println("-------------------");
-                System.out.println(usuario);
-                System.out.println("-------------------");
-                return;
-            } else {
-                System.out.println("Nenhum usuario encontrado");
+                return usuario;
             }
         }
+        System.out.println("Nenhum usuario encontrado");
+        return null;
     }
 
     public void buscarUsuarioPorLogin(String login) {

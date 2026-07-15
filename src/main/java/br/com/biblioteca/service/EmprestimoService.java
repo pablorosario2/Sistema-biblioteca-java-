@@ -4,20 +4,25 @@ import main.java.br.com.biblioteca.enums.StatusEmprestimo;
 import main.java.br.com.biblioteca.model.Emprestimo;
 import main.java.br.com.biblioteca.validacao.ValidarEmprestimo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmprestimoService {
     private repository.ArquivoRepository repository = new repository.ArquivoRepository();
-    private ArrayList<Emprestimo> Emprestimo = new ArrayList<>();
+    private ArrayList<Emprestimo> emprestimo = new ArrayList<>();
     private ValidarEmprestimo validarEmprestimo = new ValidarEmprestimo();
+    LocalDate hoje = LocalDate.now();
+    LocalDate PrevisaoDevolicao = hoje.plusDays(7);
+
 
     public void cadastrarEmprestimo(int id,
                                     int idUsuario,
-                                    int idLivro,
-                                    String dataEmprestimo,
-                                    String dataPrevistaDevolucao,
-                                    String dataDevolucao,
-                                    StatusEmprestimo statusEmprestimo) {
+                                    int idLivro) {
+
+        LocalDate dataEmprestimo = hoje;
+        LocalDate dataPrevistaDevolucao = PrevisaoDevolicao;
+        LocalDate dataDevolucao = null;
+        StatusEmprestimo statusEmprestimo = StatusEmprestimo.ATIVO;
 
         Emprestimo emprestimo = new Emprestimo(id,
                 idUsuario,
@@ -27,47 +32,68 @@ public class EmprestimoService {
                 dataDevolucao,
                 statusEmprestimo);
 
-        Emprestimo.add(emprestimo);
-        repository.salvarEmprestimos(Emprestimo);
+        validacoesEmprestimos(id);
+        this.emprestimo.add(emprestimo);
+        repository.salvarEmprestimos(this.emprestimo);
         System.out.println("Emprestimo cadastrado com sucesso!");
     }
 
+    public Emprestimo buscarEmprestimoPorId(int id){
+        for (Emprestimo emprestimo : emprestimo) {
+            if (emprestimo.getId() == id) {
+                return emprestimo;
+            }
+        }
+        System.out.println("Nenhum empréstimo encontrado");
+        return null;
+    }
+
     public void listarEmprestimo() {
-        if (Emprestimo.isEmpty()) {
+        if (emprestimo.isEmpty()) {
             System.out.println("Nenhum emprestimo cadastrado!");
             return;
         }
 
-        for (Emprestimo emprestimo : Emprestimo) {
+        for (Emprestimo emprestimo : this.emprestimo) {
 
             System.out.println("-------------------");
-            System.out.println(Emprestimo);
+            System.out.println(emprestimo);
             System.out.println("-------------------");
         }
     }
 
 
     public void listarEmprestimosAtivos(StatusEmprestimo statusEmprestimo) {
-        if (Emprestimo.isEmpty()) {
+        if (emprestimo.isEmpty()) {
             System.out.println("Nenhum emprestimo cadastrado!");
             return;
         }
 
-        for (Emprestimo emprestimo : Emprestimo) {
+        for (Emprestimo emprestimo : this.emprestimo) {
             if (statusEmprestimo == StatusEmprestimo.ATIVO)
-            System.out.println("-------------------");
-            System.out.println(Emprestimo);
+                System.out.println("-------------------");
+            System.out.println(emprestimo);
             System.out.println("-------------------");
         }
     }
 
     public void listarEmprestimosPorUsuario(int idUsuario) {
-        for (Emprestimo emprestimo : Emprestimo) {
+        for (Emprestimo emprestimo : this.emprestimo) {
             if (emprestimo.getIdUsuario() == idUsuario)
                 System.out.println("-------------------");
-            System.out.println(Emprestimo);
+            System.out.println(emprestimo);
             System.out.println("-------------------");
         }
+    }
+
+    public void adicionarDataDevolucao( int id, LocalDate dataDevolucao) {
+        Emprestimo emprestimoEncontrado = buscarEmprestimoPorId(id);
+        emprestimoEncontrado.setDataDevolucao(dataDevolucao);
+    }
+
+    public void validacoesEmprestimos(int id) {
+        validarEmprestimo.verificarLimite();
+        validarEmprestimo.descontarEmprestimo(id);
     }
 
 }

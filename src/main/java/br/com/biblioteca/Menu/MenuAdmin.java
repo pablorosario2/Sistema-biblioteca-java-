@@ -10,6 +10,7 @@ public class MenuAdmin {
 
     private LivroService LivroService;
     private EmprestimoService EmprestimoService;
+    private UsuarioService ServiceUsuario;
     private model.Livro Livro;
 
     public void iniciar() {
@@ -103,14 +104,15 @@ public class MenuAdmin {
                         System.out.println("Opção inválida!");
                         loop = false;
                     }
-
                 }
                 break;
             case 4:
-                EmprestimoService.listarEmprestimo();
+                ServiceUsuario.listarUsuarios();
                 break;
 
             case 5:
+                EmprestimoService.listarEmprestimo();
+                break;
             case 6:
 
             case 0:

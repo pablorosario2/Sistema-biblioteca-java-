@@ -62,18 +62,14 @@ public class LivroService {
         }
     }
 
-    public void buscarLivroPorId(int id) {
+    public Livro buscarLivroPorId(int id) {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
-                System.out.println("-------------------");
-                System.out.println(livro);
-                System.out.println("-------------------");
-                return;
-            } else {
-                System.out.println("Nenhum livro encontrado");
+                return livro;
             }
         }
-
+        System.out.println("Nenhum livro encontrado");
+        return null;
     }
 
     public void buscarLivroPorTitulo(String titulo) {
