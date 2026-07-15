@@ -1,20 +1,26 @@
 package main.java.br.com.biblioteca.Menu;
 
-import java.util.Scanner;
-
 import main.java.br.com.biblioteca.service.*;
+import main.java.br.com.biblioteca.util.DataUtil;
 import main.java.br.com.biblioteca.validacao.*;
 
-
 public class MenuPrincipal {
+
+    // atributos
     private LivroService LivroService;
     private model.Livro Livro;
 
+    // metodos
     public void iniciar() {
+
+        // servicos e utilitarios
         UsuarioService usuarioService = new UsuarioService();
         ValidarUsuario validarUsuario = new ValidarUsuario();
-        Scanner print = new Scanner(System.in);
+        EmprestimoService emprestimoService = new EmprestimoService();
+        util.Entrada entrada = new util.Entrada();
+        DataUtil data = new DataUtil();
 
+        // variaveis locais
         int opcao;
         int id;
         String nome;
@@ -23,31 +29,31 @@ public class MenuPrincipal {
         String senha;
         boolean loop;
 
-
+        // menu
         System.out.println("============= biblioteca =============");
         System.out.println("1 - Login");
-        System.out.println("2 - Cadastrar usuário");
-        System.out.println("3 - Listar livros disponíveis");
+        System.out.println("2 - Cadastrar usuÃ¡rio");
+        System.out.println("3 - Listar livros disponÃ­veis");
         System.out.println("0 - Sair");
         System.out.println("=======================================");
-        opcao = print.nextInt();
+        opcao = entrada.LerOpcao();
 
+        // opcoes
         switch (opcao) {
             case 1:
                 while (loop = false) {
 
-                    print.nextLine();
                     System.out.println("=========== LOGIN ===========");
                     System.out.print("Digite seu login: ");
-                    login = print.next();
+                    login = entrada.LerLogin();
                     System.out.print("\nDigite a sua senha: ");
-                    senha = print.next();
+                    senha = entrada.LerSenha();
 
                     if (validarUsuario.validarLogin(login, senha)) {
                         System.out.println("Login realizado com sucesso!");
                         loop = true;
                     } else {
-                        System.out.println("Login ou senha inválidos!");
+                        System.out.println("Login ou senha invÃ¡lidos!");
                         loop = false;
                     }
                     break;
@@ -55,19 +61,17 @@ public class MenuPrincipal {
 
             case 2:
                 while (loop = false) {
-                    print.nextLine();
-
-                    System.out.println("=========== CADASTRAR USUÁRIO ===========");
+                    System.out.println("=========== CADASTRAR USUÃRIO ===========");
                     System.out.print("Nome: ");
-                    nome = print.nextLine();
+                    nome = entrada.LerNome();
                     System.out.print("\nCPF: ");
-                    cpf = print.nextLine();
+                    cpf = entrada.LerCpf();
                     System.out.print("\nDigite seu login: ");
-                    login = print.next();
+                    login = entrada.LerLogin();
                     System.out.print("\nDigite a sua senha: ");
-                    senha = print.next();
-                    System.out.print("\nTipo de usuário: \n1 - Usuário\n2 - Admin: ");
-                    int tipoUsuario = print.nextInt();
+                    senha = entrada.LerSenha();
+                    System.out.print("\nTipo de usuÃ¡rio: \n1 - UsuÃ¡rio\n2 - Admin: ");
+                    int tipoUsuario = entrada.LerTipoUsuario();
 
                     if (tipoUsuario == 1) {
                         usuarioService.cadastrarUsuario(1, nome, cpf, login, senha, enums.TipoUsuario.USER, 3);
@@ -78,7 +82,7 @@ public class MenuPrincipal {
                         loop = true;
                         break;
                     } else {
-                        System.out.println("Opção inválida!");
+                        System.out.println("OpÃ§Ã£o invÃ¡lida!");
                         loop = false;
                     }
 

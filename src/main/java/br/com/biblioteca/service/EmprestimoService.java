@@ -8,13 +8,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmprestimoService {
+
+    // atributos
     private repository.ArquivoRepository repository = new repository.ArquivoRepository();
     private ArrayList<Emprestimo> emprestimo = new ArrayList<>();
     private ValidarEmprestimo validarEmprestimo = new ValidarEmprestimo();
     LocalDate hoje = LocalDate.now();
     LocalDate PrevisaoDevolicao = hoje.plusDays(7);
 
-
+    // metodos
     public void cadastrarEmprestimo(int id,
                                     int idUsuario,
                                     int idLivro) {
@@ -38,13 +40,13 @@ public class EmprestimoService {
         System.out.println("Emprestimo cadastrado com sucesso!");
     }
 
-    public Emprestimo buscarEmprestimoPorId(int id){
+    public Emprestimo buscarEmprestimoPorId(int id) {
         for (Emprestimo emprestimo : emprestimo) {
             if (emprestimo.getId() == id) {
                 return emprestimo;
             }
         }
-        System.out.println("Nenhum empréstimo encontrado");
+        System.out.println("Nenhum emprÃ©stimo encontrado");
         return null;
     }
 
@@ -61,7 +63,6 @@ public class EmprestimoService {
             System.out.println("-------------------");
         }
     }
-
 
     public void listarEmprestimosAtivos(StatusEmprestimo statusEmprestimo) {
         if (emprestimo.isEmpty()) {
@@ -86,7 +87,7 @@ public class EmprestimoService {
         }
     }
 
-    public void adicionarDataDevolucao( int id, LocalDate dataDevolucao) {
+    public void adicionarDataDevolucao(int id, LocalDate dataDevolucao) {
         Emprestimo emprestimoEncontrado = buscarEmprestimoPorId(id);
         emprestimoEncontrado.setDataDevolucao(dataDevolucao);
     }
@@ -95,9 +96,4 @@ public class EmprestimoService {
         validarEmprestimo.verificarLimite();
         validarEmprestimo.descontarEmprestimo(id);
     }
-
 }
-
-
-
-

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class ArquivoRepository {
 
+    // metodos salvar
     public void salvarLivros(ArrayList<Livro> livros) {
 
         try (BufferedWriter writer =
@@ -58,10 +59,10 @@ public class ArquivoRepository {
                 writer.newLine();
             }
 
-            System.out.println("Usuários salvos com sucesso!");
+            System.out.println("UsuÃ¡rios salvos com sucesso!");
 
         } catch (IOException e) {
-            System.out.println("Erro ao salvar os usuários: " + e.getMessage());
+            System.out.println("Erro ao salvar os usuÃ¡rios: " + e.getMessage());
         }
     }
 
@@ -85,13 +86,14 @@ public class ArquivoRepository {
                 writer.newLine();
             }
 
-            System.out.println("Empréstimos salvos com sucesso!");
+            System.out.println("EmprÃ©stimos salvos com sucesso!");
 
         } catch (IOException e) {
-            System.out.println("Erro ao salvar os empréstimos: " + e.getMessage());
+            System.out.println("Erro ao salvar os emprÃ©stimos: " + e.getMessage());
         }
     }
 
+    // metodos carregar
     public ArrayList<Livro> carregarLivros() {
         ArrayList<Livro> livros = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("data/livros.txt"))) {
@@ -143,7 +145,7 @@ public class ArquivoRepository {
 
         } catch (IOException e) {
 
-            System.out.println("Erro ao carregar usuários.");
+            System.out.println("Erro ao carregar usuÃ¡rios.");
             e.printStackTrace();
 
         }
@@ -161,7 +163,7 @@ public class ArquivoRepository {
                         Integer.parseInt(dados[0]),
                         Integer.parseInt(dados[1]),
                         Integer.parseInt(dados[2]),
-                        dados[3],
+                        Integer.parseInt(dados[3]),
                         dados[4],
                         dados[5],
                         StatusEmprestimo.valueOf(dados[6])
@@ -172,14 +174,11 @@ public class ArquivoRepository {
 
         } catch (IOException e) {
 
-            System.out.println("Erro ao carregar empréstimos.");
+            System.out.println("Erro ao carregar emprÃ©stimos.");
             e.printStackTrace();
 
         }
 
         return emprestimos;
     }
-
-    
-
 }

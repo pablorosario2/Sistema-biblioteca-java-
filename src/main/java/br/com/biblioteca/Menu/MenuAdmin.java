@@ -1,24 +1,30 @@
 package main.java.br.com.biblioteca.Menu;
 
-import java.util.Scanner;
-
 import main.java.br.com.biblioteca.model.*;
 import main.java.br.com.biblioteca.service.*;
+import main.java.br.com.biblioteca.util.DataUtil;
 import main.java.br.com.biblioteca.validacao.*;
 
 public class MenuAdmin {
 
+    // atributos
     private LivroService LivroService;
     private EmprestimoService EmprestimoService;
     private UsuarioService ServiceUsuario;
     private model.Livro Livro;
 
+    // metodos
     public void iniciar() {
 
+        // servicos e utilitarios
         UsuarioService usuarioService = new UsuarioService();
         ValidarUsuario validarUsuario = new ValidarUsuario();
-        Scanner print = new Scanner(System.in);
+        LivroService livroService = new LivroService();
+        EmprestimoService emprestimoService = new EmprestimoService();
+        util.Entrada entrada = new util.Entrada();
+        DataUtil data = new DataUtil();
 
+        // variaveis locais
         int opcao;
         int id;
         String nome;
@@ -34,38 +40,39 @@ public class MenuAdmin {
         int quantidadeTotal;
         int quantidadeDisponivel;
 
+        // menu
         System.out.println("============= ADMIN =============");
         System.out.println("1 - Cadastrar livro");
         System.out.println("2 - Listar livros");
-        System.out.println("3 - Cadastrar usuário");
-        System.out.println("4 - Listar usuários");
-        System.out.println("5 - Listar empréstimos");
-        System.out.println("6 - Ver histórico");
+        System.out.println("3 - Cadastrar usuÃ¡rio");
+        System.out.println("4 - Listar usuÃ¡rios");
+        System.out.println("5 - Listar emprÃ©stimos");
+        System.out.println("6 - Ver histÃ³rico");
         System.out.println("0 - Voltar/Sair");
         System.out.println("=================================");
-        opcao = print.nextInt();
+        opcao = entrada.LerOpcao();
 
+        // opcoes
         switch (opcao) {
             case 1:
-                print.nextLine();
                 while (loop = false) {
                     System.out.println("============= CADASTRAR LIVRO =============");
                     System.out.println("Digite o ID do livro: ");
-                    id = print.nextInt();
-                    System.out.println("Digite o título do livro: ");
-                    nome = print.next();
+                    id = entrada.LerId();
+                    System.out.println("Digite o tÃ­tulo do livro: ");
+                    nome = entrada.LerTitulo();
                     System.out.println("Digite o autor do livro: ");
-                    cpf = print.next();
-                    System.out.println("Digite o ano de lançamento do livro: ");
-                    anoLancamento = print.nextInt();
+                    cpf = entrada.LerAutor();
+                    System.out.println("Digite o ano de lanÃ§amento do livro: ");
+                    anoLancamento = entrada.LerAnoLancamento();
                     System.out.println("Digite a categoria do livro: ");
-                    categoria = enums.CategoriaLivro.valueOf(print.next().toUpperCase());
+                    categoria = enums.CategoriaLivro.valueOf(entrada.LerCategoriaLivro().toUpperCase());
                     System.out.println("Digite o ISBN do livro: ");
-                    isbn = print.next();
+                    isbn = entrada.LerIsbn();
                     System.out.println("Digite a quantidade total do livro: ");
-                    quantidadeTotal = print.nextInt();
-                    System.out.println("Digite a quantidade disponível do livro: ");
-                    quantidadeDisponivel = print.nextInt();
+                    quantidadeTotal = entrada.LerQuantidadeTotal();
+                    System.out.println("Digite a quantidade disponÃ­vel do livro: ");
+                    quantidadeDisponivel = entrada.LerQuantidadeDisponivel();
 
                     LivroService.cadastrarLivro(id, nome, cpf, anoLancamento, categoria, isbn, quantidadeTotal, quantidadeDisponivel);
                     loop = true;
@@ -78,19 +85,17 @@ public class MenuAdmin {
                 }
             case 3:
                 while (loop = false) {
-                    print.nextLine();
-
-                    System.out.println("=========== CADASTRAR USUÁRIO ===========");
+                    System.out.println("=========== CADASTRAR USUÃRIO ===========");
                     System.out.print("Nome: ");
-                    nome = print.nextLine();
+                    nome = entrada.LerNome();
                     System.out.print("\nCPF: ");
-                    cpf = print.nextLine();
+                    cpf = entrada.LerCpf();
                     System.out.print("\nDigite seu login: ");
-                    login = print.next();
+                    login = entrada.LerLogin();
                     System.out.print("\nDigite a sua senha: ");
-                    senha = print.next();
-                    System.out.print("\nTipo de usuário: \n1 - Usuário\n2 - Admin: ");
-                    int tipoUsuario = print.nextInt();
+                    senha = entrada.LerSenha();
+                    System.out.print("\nTipo de usuÃ¡rio: \n1 - UsuÃ¡rio\n2 - Admin: ");
+                    int tipoUsuario = entrada.LerTipoUsuario();
 
                     if (tipoUsuario == 1) {
                         usuarioService.cadastrarUsuario(1, nome, cpf, login, senha, enums.TipoUsuario.USER, 3);
@@ -101,7 +106,7 @@ public class MenuAdmin {
                         loop = true;
                         break;
                     } else {
-                        System.out.println("Opção inválida!");
+                        System.out.println("OpÃ§Ã£o invÃ¡lida!");
                         loop = false;
                     }
                 }
@@ -119,7 +124,5 @@ public class MenuAdmin {
                 break;
         }
 
-
     }
-
 }

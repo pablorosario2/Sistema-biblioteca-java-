@@ -1,4 +1,5 @@
 package main.java.br.com.biblioteca.service;
+
 import model.Livro;
 import validacao.ValidarLivro;
 
@@ -7,10 +8,13 @@ import java.util.ArrayList;
 import enums.CategoriaLivro;
 
 public class LivroService {
+
+    // atributos
     private repository.ArquivoRepository repository = new repository.ArquivoRepository();
     private ArrayList<Livro> livros = new ArrayList<>();
     private ValidarLivro validarLivro = new ValidarLivro();
 
+    // metodos
     public void cadastrarLivro(int id, String titulo, String autor, int anoLancamento, CategoriaLivro categoria, String isbn, int quantidadeTotal, int quantidadeDisponivel) {
 
         Livro livro = new Livro(id, titulo, autor, anoLancamento, categoria, isbn, quantidadeTotal, quantidadeDisponivel);
@@ -21,10 +25,6 @@ public class LivroService {
         repository.salvarLivros(livros);
 
         System.out.println("Livro cadastrado com sucesso!");
-    }
-
-    public ArrayList<Livro> getLivros() {
-        return livros;
     }
 
     public void listarLivros() {
@@ -43,7 +43,7 @@ public class LivroService {
     }
 
     public void listarLivrosDisponiveis() {
-        System.out.println("Listando todos os livros disponíveis.");
+        System.out.println("Listando todos os livros disponÃ­veis.");
 
         boolean encontrou = false;
 
@@ -58,7 +58,7 @@ public class LivroService {
         }
 
         if (!encontrou) {
-            System.out.println("Nenhum livro disponível!");
+            System.out.println("Nenhum livro disponÃ­vel!");
         }
     }
 
@@ -87,7 +87,7 @@ public class LivroService {
     public void validarIdDuplicado(int id) {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
-                throw new IllegalArgumentException("Já existe um livro cadastrado com o ID " + id);
+                throw new IllegalArgumentException("JÃ¡ existe um livro cadastrado com o ID " + id);
             }
         }
     }
@@ -95,7 +95,7 @@ public class LivroService {
     public Livro validarLivroDuplicado(int id, String titulo, String isbn) {
         for (Livro livro : livros) {
             if (livro.getId() == id || livro.getTitulo().equalsIgnoreCase(titulo) || livro.getIsbn().equals(isbn)) {
-                System.out.println("Ja existe um livro com essa informações");
+                System.out.println("Ja existe um livro com essa informaÃ§Ãµes");
                 return livro;
             }
 
@@ -122,11 +122,15 @@ public class LivroService {
 
     }
 
+    // gets
+    public ArrayList<Livro> getLivros() {
+        return livros;
+    }
 
+    // metodos privados
     private void verificacoesNecessariasLivro(Livro livro, int id, String titulo, String isbn) {
         validarLivro.validarLivro(livro);
         validarIdDuplicado(id);
         validarLivroDuplicado(id, titulo, isbn);
     }
-
 }

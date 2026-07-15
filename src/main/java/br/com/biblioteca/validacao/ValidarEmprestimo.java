@@ -5,15 +5,18 @@ import main.java.br.com.biblioteca.service.LivroService;
 import main.java.br.com.biblioteca.service.UsuarioService;
 
 public class ValidarEmprestimo {
+
+    // atributos
     private model.Usuario usuario;
     private model.Livro livro;
     UsuarioService usuarioService = new UsuarioService();
     LivroService livroService = new LivroService();
 
+    // metodos
     public void verificarLimite() {
 
         if (usuario.getLimiteEmprestimo() <= 0) {
-            throw new IllegalArgumentException("Usuario não tem mais emprestimo disponivel");
+            throw new IllegalArgumentException("Usuario nÃ£o tem mais emprestimo disponivel");
         } else if (usuario.getLimiteEmprestimo() >= 0) {
             int limiteemprestimo = usuario.getLimiteEmprestimo();
             usuario.setLimiteEmprestimo(limiteemprestimo - 1);

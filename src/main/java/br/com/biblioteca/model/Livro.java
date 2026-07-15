@@ -3,6 +3,8 @@ package model;
 import enums.CategoriaLivro;
 
 public class Livro {
+
+    // atributos
     private int id;
     private String titulo;
     private String autor;
@@ -12,6 +14,7 @@ public class Livro {
     private int quantidadeTotal;
     private int quantidadeDisponivel;
 
+    // construtores
     public Livro() {
     }
 
@@ -35,6 +38,7 @@ public class Livro {
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
 
+    // metodos
     public void MostrarLivro() {
         System.out.println("ID: " + this.id);
         System.out.println("Titulo: " + this.titulo);
@@ -45,71 +49,6 @@ public class Livro {
         System.out.println("ISBN: " + this.isbn);
 
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public int getAnoLancamento() {
-        return anoLancamento;
-    }
-
-    public void setAnoLancamento(int anoLancamento) {
-        this.anoLancamento = anoLancamento;
-    }
-
-    public CategoriaLivro getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(CategoriaLivro categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public int getQuantidadeTotal() {
-        return quantidadeTotal;
-    }
-
-    public void setQuantidadeTotal(int quantidadeTotal) {
-        this.quantidadeTotal = quantidadeTotal;
-    }
-
-    public int getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
-    }
-
-    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
-    }
-
 
     @Override
     public String toString() {
@@ -123,5 +62,71 @@ public class Livro {
                 ", quantidadeTotal=" + quantidadeTotal +
                 ", quantidadeDisponivel=" + quantidadeDisponivel +
                 '}';
+    }
+
+    // gets
+    public int getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public int getAnoLancamento() {
+        return anoLancamento;
+    }
+
+    public CategoriaLivro getCategoria() {
+        return categoria;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public int getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    // sets
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setAnoLancamento(int anoLancamento) {
+        this.anoLancamento = anoLancamento;
+    }
+
+    public void setCategoria(CategoriaLivro categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setQuantidadeTotal(int quantidadeTotal) {
+        this.quantidadeTotal = quantidadeTotal;
+    }
+
+    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
+        this.quantidadeDisponivel = quantidadeDisponivel;
     }
 }

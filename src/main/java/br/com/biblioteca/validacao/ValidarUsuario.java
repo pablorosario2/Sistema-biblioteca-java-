@@ -4,11 +4,14 @@ import enums.TipoUsuario;
 import main.java.br.com.biblioteca.service.*;
 
 public class ValidarUsuario {
+
+    // atributos
     private UsuarioService usuarioService;
 
+    // metodos
     public boolean validarLogin(String login, String senha) {
         for (model.Usuario usuario : usuarioService.getUsuarios()) {
-            if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha) ) {
+            if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
                 System.out.println("Usuario ja existe");
                 System.out.println("-------------------");
                 System.out.println(usuario);
@@ -23,7 +26,7 @@ public class ValidarUsuario {
 
     public void validarLoginDuplicado(String login) {
         for (model.Usuario usuario : usuarioService.getUsuarios()) {
-            if (usuario.getLogin().equals(login) ) {
+            if (usuario.getLogin().equals(login)) {
                 System.out.println("Esse login ja existe");
                 System.out.println("-------------------");
                 System.out.println(usuario);
@@ -47,10 +50,7 @@ public class ValidarUsuario {
         }
     }
 
-    public void verificarTipoUsuario(enums.TipoUsuario tipoUsuario){
+    public void verificarTipoUsuario(enums.TipoUsuario tipoUsuario) {
         tipoUsuario = TipoUsuario.USER;
     }
-
-
-
 }

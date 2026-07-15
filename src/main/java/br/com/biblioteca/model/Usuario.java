@@ -3,6 +3,8 @@ package model;
 import enums.TipoUsuario;
 
 public class Usuario {
+
+    // atributos
     private int id;
     private String nome;
     private String cpf;
@@ -11,6 +13,7 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
     private int limiteEmprestimo;
 
+    // construtores
     public Usuario() {
     }
 
@@ -34,6 +37,7 @@ public class Usuario {
     public Usuario(int id, String nome, String cpf, String login, String senha, enums.TipoUsuario tipoUsuario) {
     }
 
+    // metodos
     public void mostrarUsuario() {
         System.out.println("ID: " + this.id);
         System.out.println("Nome: " + this.nome);
@@ -41,62 +45,6 @@ public class Usuario {
         System.out.println("Login: " + this.login);
         System.out.println("Tipo de Usuario: " + this.tipoUsuario);
         System.out.println("Limite de Emprestimo: " + this.limiteEmprestimo);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
-    public int getLimiteEmprestimo() {
-        return limiteEmprestimo;
-    }
-
-    public void setLimiteEmprestimo(int limiteEmprestimo) {
-        this.limiteEmprestimo = limiteEmprestimo;
     }
 
     @Override
@@ -110,5 +58,63 @@ public class Usuario {
                 ", tipoUsuario=" + tipoUsuario +
                 ", limiteEmprestimo=" + limiteEmprestimo +
                 '}';
+    }
+
+    // gets
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public int getLimiteEmprestimo() {
+        return limiteEmprestimo;
+    }
+
+    // sets
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public void setLimiteEmprestimo(int limiteEmprestimo) {
+        this.limiteEmprestimo = limiteEmprestimo;
     }
 }

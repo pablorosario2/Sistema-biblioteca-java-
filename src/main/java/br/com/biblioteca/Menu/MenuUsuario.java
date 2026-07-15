@@ -1,21 +1,24 @@
 package main.java.br.com.biblioteca.Menu;
 
+import jdk.jshell.execution.Util;
 import main.java.br.com.biblioteca.enums.StatusEmprestimo;
 import main.java.br.com.biblioteca.service.EmprestimoService;
 import main.java.br.com.biblioteca.service.LivroService;
 
-import java.time.LocalDate;
-import java.util.Scanner;
+import main.java.br.com.biblioteca.util.*;
 
 public class MenuUsuario {
-    private LivroService LivroService;
 
-
+    // metodos
     public static void iniciar() {
-        LocalDate hoje = LocalDate.now();
+
+        // servicos e utilitarios
         LivroService livroService = new LivroService();
         EmprestimoService emprestimoService = new EmprestimoService();
+        util.Entrada entrada = new util.Entrada();
+        DataUtil data = new DataUtil();
 
+        // variaveis locais
         int opcao;
         int id;
         int idUsuario;
@@ -36,50 +39,58 @@ public class MenuUsuario {
         String isbn;
         int quantidadeTotal;
         int quantidadeDisponivel;
-        Scanner print = new Scanner(System.in);
 
-
+        // menu
         System.out.println("============= USER =============");
-        System.out.println("1 - Listar livros disponíveis");
-        System.out.println("2 - Buscar livro por título");
+        System.out.println("1 - Listar livros disponÃ­veis");
+        System.out.println("2 - Buscar livro por tÃ­tulo");
         System.out.println("3 - Pegar livro emprestado");
         System.out.println("4 - Devolver livro");
-        System.out.println("5 - Ver meus empréstimos");
+        System.out.println("5 - Ver meus emprÃ©stimos");
         System.out.println("0 - Voltar/Sair");
         System.out.println("=================================");
-        opcao = print.nextInt();
+        opcao = entrada.LerOpcao();
 
+        // opcoes
         switch (opcao) {
             case 1:
                 livroService.listarLivrosDisponiveis();
+                break;
 
             case 2:
                 System.out.println("Qual o ID do livro?");
-                id = print.nextInt();
+                id = entrada.LerId();
                 livroService.buscarLivroPorId(id);
+                break;
 
             case 3:
                 System.out.println("========== PEGAR LIVRO ==========");
                 System.out.println("ID do emprestimo: ");
-                id = print.nextInt();
+                id = entrada.LerId();
                 System.out.println("ID do usuario: ");
-                idUsuario = print.nextInt();
+                idUsuario = entrada.LerId();
                 System.out.println("ID do livro: ");
-                idLivro = print.nextInt();
+                idLivro = entrada.LerId();
                 emprestimoService.cadastrarEmprestimo(id, idUsuario, idLivro);
+                break;
 
             case 4:
                 System.out.println("========== DEVOLVER LIVRO ==========");
                 System.out.println("ID do emprestimo: ");
-                id = print.nextInt();
-                emprestimoService.adicionarDataDevolucao(id, hoje);
+                id = entrada.LerId();
+                emprestimoService.adicionarDataDevolucao(id, data.hoje());
+                break;
 
             case 5:
-                System.out.println("========== Ver meus empréstimos ==========");
+                System.out.println("========== Ver meus emprÃ©stimos ==========");
                 System.out.println("ID do usuario: ");
-                EmprestimoService.listarEmprestimosPorUsuario();
-        }
+                id = entrada.LerId();
+                emprestimoService.listarEmprestimosPorUsuario(id);
+                break;
 
+            case 6:
+                return;
+        }
 
     }
 }
