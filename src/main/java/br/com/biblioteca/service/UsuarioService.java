@@ -2,6 +2,7 @@ package main.java.br.com.biblioteca.service;
 
 import java.util.ArrayList;
 
+import main.java.br.com.biblioteca.repository.repositoryUsuarios;
 import main.java.br.com.biblioteca.validacao.ValidarUsuario;
 import enums.TipoUsuario;
 import model.Admin;
@@ -10,9 +11,8 @@ import model.Usuario;
 public class UsuarioService {
 
     // atributos
-    private repository.ArquivoRepository repository = new repository.ArquivoRepository();
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
-    private ArrayList<Admin> admins = new ArrayList<>();
+    private repositoryUsuarios repositoryUsuarios = new repositoryUsuarios();
+    private ArrayList<model.Usuario> usuarios = repositoryUsuarios.carregarUsuarios();
     public ValidarUsuario ValidarUsuario = new ValidarUsuario();
 
     // metodos
@@ -35,7 +35,7 @@ public class UsuarioService {
         verificacoesNecessarias(nome, login, senha, cpf, tipoUsuario);
 
         usuarios.add(usuario);
-        repository.salvarUsuarios(usuarios);
+        repositoryUsuarios.salvarUsuarios(usuarios);
         System.out.println("UsuÃ¡rio cadastrado com sucesso!");
     }
 
@@ -55,7 +55,7 @@ public class UsuarioService {
 
         verificacoesNecessarias(nome, login, senha, cpf, tipoUsuario);
 
-        admins.add(admin);
+        usuarios.add(admin);
         System.out.println("Admin cadastrado com sucesso!");
     }
 
@@ -114,6 +114,11 @@ public class UsuarioService {
     }
 
     public ArrayList<Admin> getAdmins() {
-        return admins;
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum admin cadastrado!");
+        }
+
+        if (usuarios.()) {}
+        return usuarios;
     }
 }

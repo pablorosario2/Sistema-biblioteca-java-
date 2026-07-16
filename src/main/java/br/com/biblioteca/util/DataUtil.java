@@ -18,12 +18,32 @@ public class DataUtil {
         return LocalDate.now();
     }
 
-    public String ConverterDataString(LocalDate data) {
-        return data.toString();
-    }
-
     public String FormtarData(LocalDate data) {
         DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return data.format(formatador);
     }
+
+    public String FormtarDataAoOriginal(LocalDate data) {
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return data.format(formatador);
+    }
+
+    public String ConverterDataString(LocalDate data) {
+        return data.toString();
+    }
+
+    public LocalDate converterStringData(String data) {
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataFormatada = LocalDate.parse(data, formatador);
+        return dataFormatada;
+    }
+
+
+    public LocalDate PrevisaoDevolicao(LocalDate Hoje) {
+        Hoje = hoje();
+        LocalDate PrevisaoDevolicao = Hoje.plusDays(7);
+        return PrevisaoDevolicao;
+    }
+
+
 }

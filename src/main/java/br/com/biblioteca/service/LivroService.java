@@ -1,5 +1,7 @@
 package main.java.br.com.biblioteca.service;
 
+import main.java.br.com.biblioteca.repository.repositoryLivros;
+import main.java.br.com.biblioteca.repository.repositoryUsuarios;
 import model.Livro;
 import validacao.ValidarLivro;
 
@@ -10,8 +12,10 @@ import enums.CategoriaLivro;
 public class LivroService {
 
     // atributos
-    private repository.ArquivoRepository repository = new repository.ArquivoRepository();
-    private ArrayList<Livro> livros = new ArrayList<>();
+    private repositoryLivros repositoryLivros = new repositoryLivros();
+    private ArrayList<model.Livro> livros = repositoryLivros.carregarLivros();
+
+
     private ValidarLivro validarLivro = new ValidarLivro();
 
     // metodos
@@ -22,7 +26,7 @@ public class LivroService {
         verificacoesNecessariasLivro(livro, id, titulo, isbn);
 
         livros.add(livro);
-        repository.salvarLivros(livros);
+        repositoryLivros.salvarLivros(livros);
 
         System.out.println("Livro cadastrado com sucesso!");
     }

@@ -1,18 +1,15 @@
-import main.java.br.com.biblioteca.service.LivroService;
-import main.java.br.com.biblioteca.service.UsuarioService;
+import main.java.br.com.biblioteca.*;
+import main.java.br.com.biblioteca.Menu.MenuPrincipal;
 
 public class Main {
 
     // metodo principal
     public static void main(String[] args) {
+    MenuPrincipal menuPrincipal = new MenuPrincipal();
 
-        // servicos
-        LivroService livroService = new LivroService();
-        UsuarioService usuarioService = new UsuarioService();
 
         // execucoes
-        livroService.listarLivros();
-        usuarioService.listarUsuarios();
-        usuarioService.buscarUsuarioPorId(2);
+
+        menuPrincipal.iniciar();
     }
 }
