@@ -68,7 +68,19 @@ data/
 
 ## Como executar
 
-No Windows PowerShell, dentro da pasta do projeto:
+No Windows PowerShell, primeiro acesse a pasta onde o projeto está localizado:
+
+```powershell
+cd "CAMINHO DO PROJETO NO SEU COMPUTADOR"
+```
+
+Exemplo:
+
+```powershell
+cd "C:\Users\SeuUsuario\Documents\sistema-biblioteca-java"
+```
+
+Depois, compile e execute o projeto:
 
 ```powershell
 $files = Get-ChildItem -LiteralPath 'src\main\java' -Recurse -Filter '*.java'
@@ -76,8 +88,7 @@ javac -encoding UTF-8 -d out $files.FullName
 java -cp out br.com.biblioteca.Main
 ```
 
-Também é possível abrir o projeto em uma IDE Java e executar a classe `Main`.
-
+Também é possível abrir o projeto em uma IDE Java e executar diretamente a classe `Main`.
 ## Dados de teste
 
 ### Administrador
