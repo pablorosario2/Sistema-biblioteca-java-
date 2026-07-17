@@ -1,4 +1,4 @@
-package main.java.br.com.biblioteca.enums;
+package br.com.biblioteca.enums;
 
 public enum StatusEmprestimo {
 

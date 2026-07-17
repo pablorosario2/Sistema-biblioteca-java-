@@ -1,83 +1,84 @@
-package util;
+package br.com.biblioteca.util;
 
 import java.util.Scanner;
 
 public class Entrada {
 
-    // atributos
-    Scanner entrada = new Scanner(System.in);
+    private final Scanner entrada = new Scanner(System.in);
 
-    // leitura de numeros
-    public int LerOpcao() {
-        int opcao = entrada.nextInt();
-        entrada.nextLine();
-        return opcao;
+    private int lerInteiro(String mensagemErro) {
+        while (true) {
+            String valor = entrada.nextLine();
+
+            try {
+                return Integer.parseInt(valor.trim());
+            } catch (NumberFormatException e) {
+                System.out.println(mensagemErro);
+            }
+        }
     }
 
-    public int LerId() {
-        int id = entrada.nextInt();
-        entrada.nextLine();
-        return id;
+    public int lerOpcao() {
+        return lerInteiro("Digite uma opção válida.");
     }
 
-    public int LerTipoUsuario() {
-        int tipoUsuario = entrada.nextInt();
-        entrada.nextLine();
-        return tipoUsuario;
+    public int lerId() {
+        return lerInteiro("Digite um ID válido.");
     }
 
-    public int LerQuantidadeDisponivel() {
-        int quantidadeDisponivel = entrada.nextInt();
-        entrada.nextLine();
-        return quantidadeDisponivel;
+    public int lerTipoUsuario() {
+        return lerInteiro("Digite um tipo de usuário válido.");
     }
 
-    public int LerQuantidadeTotal() {
-        int quantidadeTotal = entrada.nextInt();
-        entrada.nextLine();
-        return quantidadeTotal;
+    public int lerQuantidadeDisponivel() {
+        return lerInteiro("Digite uma quantidade disponível válida.");
     }
 
-    public int LerAnoLancamento() {
-        int anoLancamento = entrada.nextInt();
-        entrada.nextLine();
-        return anoLancamento;
+    public int lerQuantidadeTotal() {
+        return lerInteiro("Digite uma quantidade total válida.");
     }
 
-    // leitura de textos
-    public String LerTexto() {
-        return entrada.nextLine();
+    public int lerAnoLancamento() {
+        return lerInteiro("Digite um ano válido.");
     }
 
-    public String LerNome() {
-        return entrada.nextLine();
+    public String lerTexto() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerTitulo() {
-        return entrada.nextLine();
+    public String lerNome() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerAutor() {
-        return entrada.nextLine();
+    public String lerTitulo() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerCategoriaLivro() {
-        return entrada.nextLine();
+    public String lerAutor() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerCpf() {
-        return entrada.nextLine();
+    public String lerCategoriaLivro() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerIsbn() {
-        return entrada.nextLine();
+    public String lerCpf() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerLogin() {
-        return entrada.nextLine();
+    public String lerEmail() {
+        return entrada.nextLine().trim();
     }
 
-    public String LerSenha() {
+    public String lerIsbn() {
+        return entrada.nextLine().trim();
+    }
+
+    public String lerLogin() {
+        return entrada.nextLine().trim();
+    }
+
+    public String lerSenha() {
         return entrada.nextLine();
     }
 }

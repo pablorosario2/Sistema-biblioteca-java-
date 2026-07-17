@@ -1,96 +1,98 @@
-package main.java.br.com.biblioteca.Menu;
+package br.com.biblioteca.menu;
 
-import jdk.jshell.execution.Util;
-import main.java.br.com.biblioteca.enums.StatusEmprestimo;
-import main.java.br.com.biblioteca.service.EmprestimoService;
-import main.java.br.com.biblioteca.service.LivroService;
-
-import main.java.br.com.biblioteca.util.*;
+import br.com.biblioteca.exception.BibliotecaException;
+import br.com.biblioteca.service.EmprestimoService;
+import br.com.biblioteca.service.LivroService;
+import br.com.biblioteca.util.DataUtil;
+import br.com.biblioteca.model.Usuario;
+import br.com.biblioteca.util.Entrada;
 
 public class MenuUsuario {
 
-    // metodos
-    public static void iniciar() {
+    // métodos
+    public void iniciar(Usuario usuario) {
 
-        // servicos e utilitarios
-        LivroService livroService = new LivroService();
-        EmprestimoService emprestimoService = new EmprestimoService();
-        util.Entrada entrada = new util.Entrada();
-        DataUtil data = new DataUtil();
+        // serviços e utilitários
+        Entrada entrada = new Entrada();
 
-        // variaveis locais
-        int opcao;
-        int id;
-        int idUsuario;
-        int idLivro;
-        String dataEmprestimo;
-        String dataPrevistaDevolucao;
-        String dataDevolucao;
-        StatusEmprestimo statusEmprestimo;
-        String nome;
-        String cpf;
-        String login;
-        String senha;
-        boolean loop;
-        String titulo;
-        String autor;
-        int anoLancamento;
-        enums.CategoriaLivro categoria;
-        String isbn;
-        int quantidadeTotal;
-        int quantidadeDisponivel;
+        // Mantem o menu do usuario aberto ate escolher voltar.
+        while (true) {
+            // menu
+            System.out.println();
+            System.out.println("============= USUÁRIO =============");
+            System.out.println("1 - Listar livros disponíveis");
+            System.out.println("2 - Buscar livro por título");
+            System.out.println("3 - Pegar livro emprestado");
+            System.out.println("4 - Devolver livro");
+            System.out.println("5 - Ver meus empréstimos");
+            System.out.println("0 - Voltar/Sair");
+            System.out.println("=================================");
+            int opcao = entrada.lerOpcao();
 
-        // menu
-        System.out.println("============= USER =============");
-        System.out.println("1 - Listar livros disponÃ­veis");
-        System.out.println("2 - Buscar livro por tÃ­tulo");
-        System.out.println("3 - Pegar livro emprestado");
-        System.out.println("4 - Devolver livro");
-        System.out.println("5 - Ver meus emprÃ©stimos");
-        System.out.println("0 - Voltar/Sair");
-        System.out.println("=================================");
-        opcao = entrada.LerOpcao();
+            // opções
+            switch (opcao) {
+                case 1:
+                    try {
+                        LivroService livroService = new LivroService();
+                        livroService.listarLivrosDisponiveis();
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-        // opcoes
-        switch (opcao) {
-            case 1:
-                livroService.listarLivrosDisponiveis();
-                break;
+                case 2:
+                    System.out.println("Qual é o título do livro?");
+                    String titulo = entrada.lerTitulo();
+                    try {
+                        LivroService livroService = new LivroService();
+                        livroService.buscarLivroPorTitulo(titulo);
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-            case 2:
-                System.out.println("Qual o ID do livro?");
-                id = entrada.LerId();
-                livroService.buscarLivroPorId(id);
-                break;
+                case 3:
+                    System.out.println("========== PEGAR LIVRO ==========");
+                    System.out.println("ID do livro: ");
+                    int idLivro = entrada.lerId();
 
-            case 3:
-                System.out.println("========== PEGAR LIVRO ==========");
-                System.out.println("ID do emprestimo: ");
-                id = entrada.LerId();
-                System.out.println("ID do usuario: ");
-                idUsuario = entrada.LerId();
-                System.out.println("ID do livro: ");
-                idLivro = entrada.LerId();
-                emprestimoService.cadastrarEmprestimo(id, idUsuario, idLivro);
-                break;
+                    try {
+                        EmprestimoService emprestimoService = new EmprestimoService();
+                        emprestimoService.cadastrarEmprestimo(usuario.getId(), idLivro);
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-            case 4:
-                System.out.println("========== DEVOLVER LIVRO ==========");
-                System.out.println("ID do emprestimo: ");
-                id = entrada.LerId();
-                emprestimoService.adicionarDataDevolucao(id, data.hoje());
-                break;
+                case 4:
+                    System.out.println("========== DEVOLVER LIVRO ==========");
+                    System.out.println("ID do empréstimo: ");
+                    int id = entrada.lerId();
+                    DataUtil data = new DataUtil();
+                    try {
+                        EmprestimoService emprestimoService = new EmprestimoService();
+                        emprestimoService.adicionarDataDevolucao(id, data.hoje());
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-            case 5:
-                System.out.println("========== Ver meus emprÃ©stimos ==========");
-                System.out.println("ID do usuario: ");
-                id = entrada.LerId();
-                emprestimoService.listarEmprestimosPorUsuario(id);
-                break;
+                case 5:
+                    System.out.println("========== VER MEUS EMPRÉSTIMOS ==========");
+                    try {
+                        EmprestimoService emprestimoService = new EmprestimoService();
+                        emprestimoService.listarEmprestimosPorUsuario(usuario.getId());
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-            case 6:
-                return;
+                case 0:
+                    return;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
         }
-
     }
 }

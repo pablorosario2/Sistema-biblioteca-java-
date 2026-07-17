@@ -1,124 +1,109 @@
-package main.java.br.com.biblioteca.service;
+package br.com.biblioteca.service;
 
 import java.util.ArrayList;
 
-import main.java.br.com.biblioteca.repository.repositoryUsuarios;
-import main.java.br.com.biblioteca.validacao.ValidarUsuario;
-import enums.TipoUsuario;
-import model.Admin;
-import model.Usuario;
+import br.com.biblioteca.exception.LoginInvalidoException;
+import br.com.biblioteca.exception.UsuarioNaoEncontradoException;
+import br.com.biblioteca.repository.UsuarioRepository;
+import br.com.biblioteca.validacao.ValidarUsuario;
+import br.com.biblioteca.enums.TipoUsuario;
+import br.com.biblioteca.model.Usuario;
+
+import static br.com.biblioteca.util.GeradorIdUtil.gerarProximoIdUsuario;
 
 public class UsuarioService {
 
     // atributos
-    private repositoryUsuarios repositoryUsuarios = new repositoryUsuarios();
-    private ArrayList<model.Usuario> usuarios = repositoryUsuarios.carregarUsuarios();
-    public ValidarUsuario ValidarUsuario = new ValidarUsuario();
+    private final UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final ArrayList<Usuario> usuarios = usuarioRepository.carregarUsuarios();
+    private final ValidarUsuario validarUsuario = new ValidarUsuario();
 
-    // metodos
-    public void cadastrarUsuario(int id,
+    // métodos
+    public void cadastrarUsuario(
                                  String nome,
                                  String cpf,
+                                 String email,
                                  String login,
                                  String senha,
-                                 TipoUsuario tipoUsuario,
-                                 int limiteEmprestimo) {
+                                 TipoUsuario tipoUsuario) {
+        int id = gerarProximoIdUsuario(usuarios);
+        int limiteEmprestimo = 3;
 
         Usuario usuario = new Usuario(id,
                 nome,
                 cpf,
+                email,
                 login,
                 senha,
                 tipoUsuario,
                 limiteEmprestimo);
 
+
         verificacoesNecessarias(nome, login, senha, cpf, tipoUsuario);
 
         usuarios.add(usuario);
-        repositoryUsuarios.salvarUsuarios(usuarios);
-        System.out.println("UsuÃ¡rio cadastrado com sucesso!");
+        usuarioRepository.salvarUsuarios(usuarios);
+        System.out.println("Usuário cadastrado com sucesso!");
     }
 
-    public void cadastrarAdmin(int id,
-                               String nome,
-                               String cpf,
-                               String login,
-                               String senha,
-                               TipoUsuario tipoUsuario) {
+    public void salvarUsuarios() {
+        usuarioRepository.salvarUsuarios(usuarios);
+    }
 
-        Admin admin = new Admin(id,
-                nome,
-                cpf,
-                login,
-                senha
-        );
+    public void verificacoesNecessarias(String nome, String login, String senha, String cpf, TipoUsuario tipoUsuario) {
 
-        verificacoesNecessarias(nome, login, senha, cpf, tipoUsuario);
+        validarUsuario.validarNome(nome);
+        validarUsuario.validarLoginDuplicado(login, usuarios);
+        validarUsuario.validarCpfDuplicado(cpf, usuarios);
+        validarUsuario.verificarTipoUsuario(tipoUsuario);
+    }
 
-        usuarios.add(admin);
-        System.out.println("Admin cadastrado com sucesso!");
+    public Usuario validarLogin(String login, String senha) {
+        Usuario usuario = validarUsuario.validarLogin(login, senha, usuarios);
+
+        if (usuario == null) {
+            throw new LoginInvalidoException("Login ou senha inválidos!");
+        }
+
+        return usuario;
     }
 
     public void listarUsuarios() {
         if (usuarios.isEmpty()) {
-            System.out.println("Nenhum usuario cadastrado!");
+            System.out.println("Nenhum usuário cadastrado!");
             return;
         }
 
-        for (model.Usuario usuario : usuarios) {
-
-            System.out.println("-------------------");
-            System.out.println(usuarios);
-            System.out.println("-------------------");
+        for (Usuario usuario : usuarios) {
+            System.out.println(usuario);
+            System.out.println();
         }
     }
 
     public Usuario buscarUsuarioPorId(int id) {
-        for (model.Usuario usuario : usuarios) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getId() == id) {
                 return usuario;
             }
         }
-        System.out.println("Nenhum usuario encontrado");
-        return null;
+
+        throw new UsuarioNaoEncontradoException("Nenhum usuário encontrado com o ID " + id);
     }
 
     public void buscarUsuarioPorLogin(String login) {
-        for (model.Usuario usuario : usuarios) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getLogin().equals(login)) {
-                System.out.println("-------------------");
                 System.out.println(usuario);
-                System.out.println("-------------------");
+                System.out.println();
                 return;
-            } else {
-                System.out.println("Nenhum usuario encontrado");
             }
         }
+
+        System.out.println("Nenhum usuário encontrado");
     }
-
-    public void verificacoesNecessarias(String nome, String login, String senha, String cpf, enums.TipoUsuario tipoUsuario) {
-
-        if (nome.isEmpty()) {
-            throw new IllegalArgumentException("Nome nÃ£o pode estar vazio");
-        }
-
-        ValidarUsuario.validarLogin(login, senha);
-        ValidarUsuario.validarLoginDuplicado(login);
-        ValidarUsuario.validarCpfDuplicado(cpf);
-        ValidarUsuario.verificarTipoUsuario(tipoUsuario);
-    };
 
     // gets
     public ArrayList<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public ArrayList<Admin> getAdmins() {
-        if (usuarios.isEmpty()) {
-            System.out.println("Nenhum admin cadastrado!");
-        }
-
-        if (usuarios.()) {}
         return usuarios;
     }
 }

@@ -1,0 +1,27 @@
+ID: 1
+Nome: Admin Padrao
+CPF: 22222222222
+Email: admin@teste.com
+Login: admin.teste
+Senha: SenhaAdmin123
+Tipo de Usuario: ADMIN
+Limite de Emprestimos: 3
+
+ID: 2
+Nome: Usuario Teste
+CPF: 33333333333
+Email: usuario@teste.com
+Login: usuario.teste
+Senha: SenhaUser123
+Tipo de Usuario: USER
+Limite de Emprestimos: 3
+
+ID: 3
+Nome: Admin Reserva
+CPF: 44444444444
+Email: admin.reserva@teste.com
+Login: admin.reserva
+Senha: SenhaReserva123
+Tipo de Usuario: ADMIN
+Limite de Emprestimos: 3
+

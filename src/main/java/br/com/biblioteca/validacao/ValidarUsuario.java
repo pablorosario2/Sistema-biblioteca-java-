@@ -1,56 +1,50 @@
-package main.java.br.com.biblioteca.validacao;
+package br.com.biblioteca.validacao;
 
-import enums.TipoUsuario;
-import main.java.br.com.biblioteca.service.*;
+import br.com.biblioteca.enums.TipoUsuario;
+import br.com.biblioteca.exception.ValidacaoException;
+import br.com.biblioteca.model.Usuario;
+
+import java.util.List;
 
 public class ValidarUsuario {
 
-    // atributos
-    private UsuarioService usuarioService;
+    // métodos
+    public void validarNome(String nome) {
+        if (nome.isEmpty()) {
+            throw new ValidacaoException("Nome não pode estar vazio");
+        }
+    }
 
-    // metodos
-    public boolean validarLogin(String login, String senha) {
-        for (model.Usuario usuario : usuarioService.getUsuarios()) {
+    public Usuario validarLogin(String login, String senha, List<Usuario> usuarios) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
-                System.out.println("Usuario ja existe");
-                System.out.println("-------------------");
-                System.out.println(usuario);
-                System.out.println("-------------------");
-                throw new IllegalArgumentException("");
-            } else {
-                return true;
+                return usuario;
             }
         }
-        return false;
+
+        return null;
     }
 
-    public void validarLoginDuplicado(String login) {
-        for (model.Usuario usuario : usuarioService.getUsuarios()) {
+    public void validarLoginDuplicado(String login, List<Usuario> usuarios) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getLogin().equals(login)) {
-                System.out.println("Esse login ja existe");
-                System.out.println("-------------------");
-                System.out.println(usuario);
-                System.out.println("-------------------");
-                throw new IllegalArgumentException("");
-            } else {
+                System.out.println("Esse login já existe");
+                throw new ValidacaoException("Esse login já existe");
             }
         }
     }
 
-    public void validarCpfDuplicado(String cpf) {
-        for (model.Usuario usuario : usuarioService.getUsuarios()) {
-            if (usuario.getCpf() == cpf) {
-                System.out.println("-------------------");
-                System.out.println(usuario);
-                System.out.println("-------------------");
-                return;
-            } else {
-                System.out.println("Nenhum usuario encontrado");
+    public void validarCpfDuplicado(String cpf, List<Usuario> usuarios) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getCpf().equals(cpf)) {
+                throw new ValidacaoException("Esse CPF já existe");
             }
         }
     }
 
-    public void verificarTipoUsuario(enums.TipoUsuario tipoUsuario) {
-        tipoUsuario = TipoUsuario.USER;
+    public void verificarTipoUsuario(TipoUsuario tipoUsuario) {
+        if (tipoUsuario != TipoUsuario.USER && tipoUsuario != TipoUsuario.ADMIN) {
+            throw new ValidacaoException("Tipo de usuário somente USUÁRIO / ADMIN");
+        }
     }
 }

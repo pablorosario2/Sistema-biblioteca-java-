@@ -1,11 +1,8 @@
-package main.java.br.com.biblioteca.exception;
+package br.com.biblioteca.exception;
 
-import main.java.br.com.biblioteca.service.EmprestimoService;
-import main.java.br.com.biblioteca.service.LivroService;
+public class LivroNaoEncontradoException extends br.com.biblioteca.exception.BibliotecaException {
 
-import java.time.LocalDate;
-
-public class LivroNaoEncontradoException {
-
-    // classe de exception
+    public LivroNaoEncontradoException(String mensagem) {
+        super(mensagem);
+    }
 }

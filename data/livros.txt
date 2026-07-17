@@ -1,0 +1,27 @@
+ID: 1
+Titulo: Clean Code
+Autor: Robert C. Martin
+Ano de Lancamento: 2008
+ISBN: 9780132350884
+Categoria: PROGRAMACAO
+Quantidade Total: 3
+Quantidade Disponivel: 3
+
+ID: 2
+Titulo: O Hobbit
+Autor: J. R. R. Tolkien
+Ano de Lancamento: 1937
+ISBN: 9788595084742
+Categoria: FANTASIA
+Quantidade Total: 2
+Quantidade Disponivel: 2
+
+ID: 3
+Titulo: Dom Casmurro
+Autor: Machado de Assis
+Ano de Lancamento: 1899
+ISBN: 9788525406958
+Categoria: ROMANCE
+Quantidade Total: 1
+Quantidade Disponivel: 1
+

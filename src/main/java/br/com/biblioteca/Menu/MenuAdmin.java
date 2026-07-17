@@ -1,128 +1,168 @@
-package main.java.br.com.biblioteca.Menu;
+package br.com.biblioteca.menu;
 
-import main.java.br.com.biblioteca.model.*;
-import main.java.br.com.biblioteca.service.*;
-import main.java.br.com.biblioteca.util.DataUtil;
-import main.java.br.com.biblioteca.validacao.*;
+import br.com.biblioteca.enums.CategoriaLivro;
+import br.com.biblioteca.enums.TipoUsuario;
+import br.com.biblioteca.exception.BibliotecaException;
+import br.com.biblioteca.service.EmprestimoService;
+import br.com.biblioteca.service.LivroService;
+import br.com.biblioteca.service.UsuarioService;
+import br.com.biblioteca.util.Entrada;
 
 public class MenuAdmin {
 
-    // atributos
-    private LivroService LivroService;
-    private EmprestimoService EmprestimoService;
-    private UsuarioService ServiceUsuario;
-    private model.Livro Livro;
-
-    // metodos
+    // métodos
     public void iniciar() {
 
-        // servicos e utilitarios
-        UsuarioService usuarioService = new UsuarioService();
-        ValidarUsuario validarUsuario = new ValidarUsuario();
-        LivroService livroService = new LivroService();
-        EmprestimoService emprestimoService = new EmprestimoService();
-        util.Entrada entrada = new util.Entrada();
-        DataUtil data = new DataUtil();
+        // serviços e utilitários
+        Entrada entrada = new Entrada();
 
-        // variaveis locais
-        int opcao;
-        int id;
-        String nome;
-        String cpf;
-        String login;
-        String senha;
-        boolean loop;
-        String titulo;
-        String autor;
-        int anoLancamento;
-        enums.CategoriaLivro categoria;
-        String isbn;
-        int quantidadeTotal;
-        int quantidadeDisponivel;
+        // Mantem o menu do administrador aberto ate escolher voltar.
+        while (true) {
+            // menu
+            System.out.println();
+            System.out.println("============= ADMIN =============");
+            System.out.println("1 - Cadastrar livro");
+            System.out.println("2 - Listar livros");
+            System.out.println("3 - Cadastrar usuário");
+            System.out.println("4 - Listar usuários");
+            System.out.println("5 - Listar empréstimos");
+            System.out.println("6 - Ver histórico");
+            System.out.println("0 - Voltar/Sair");
+            System.out.println("=================================");
+            int opcao = entrada.lerOpcao();
 
-        // menu
-        System.out.println("============= ADMIN =============");
-        System.out.println("1 - Cadastrar livro");
-        System.out.println("2 - Listar livros");
-        System.out.println("3 - Cadastrar usuÃ¡rio");
-        System.out.println("4 - Listar usuÃ¡rios");
-        System.out.println("5 - Listar emprÃ©stimos");
-        System.out.println("6 - Ver histÃ³rico");
-        System.out.println("0 - Voltar/Sair");
-        System.out.println("=================================");
-        opcao = entrada.LerOpcao();
-
-        // opcoes
-        switch (opcao) {
-            case 1:
-                while (loop = false) {
+            // opções
+            switch (opcao) {
+                case 1:
                     System.out.println("============= CADASTRAR LIVRO =============");
-                    System.out.println("Digite o ID do livro: ");
-                    id = entrada.LerId();
-                    System.out.println("Digite o tÃ­tulo do livro: ");
-                    nome = entrada.LerTitulo();
+                    System.out.println("Digite o título do livro: ");
+                    String titulo = entrada.lerTitulo();
+
                     System.out.println("Digite o autor do livro: ");
-                    cpf = entrada.LerAutor();
-                    System.out.println("Digite o ano de lanÃ§amento do livro: ");
-                    anoLancamento = entrada.LerAnoLancamento();
-                    System.out.println("Digite a categoria do livro: ");
-                    categoria = enums.CategoriaLivro.valueOf(entrada.LerCategoriaLivro().toUpperCase());
+                    String autor = entrada.lerAutor();
+
+                    System.out.println("Digite o ano de lançamento do livro [xxxx]: ");
+                    int anoLancamento = entrada.lerAnoLancamento();
+
+                    System.out.println("Categoria do livro: ");
+                    System.out.println("[1] -> VERIFICAR AS CATEGORIAS DE LIVROS");
+                    System.out.println("[2] -> JÁ SEI AS CATEGORIAS");
+                    opcao = entrada.lerOpcao();
+
+                    // Garante que o usuario escolha uma das opcoes de categoria.
+                    while (opcao != 1 && opcao != 2) {
+                        System.out.println("Opção inválida!");
+                        opcao = entrada.lerOpcao();
+                    }
+
+                    if (opcao == 1) {
+                        for (CategoriaLivro categoriaLivro : CategoriaLivro.values()) {
+                            System.out.println(categoriaLivro);
+                        }
+                    }
+
+                    CategoriaLivro categoria = CategoriaLivro.valueOf(entrada.lerCategoriaLivro().toUpperCase());
+
                     System.out.println("Digite o ISBN do livro: ");
-                    isbn = entrada.LerIsbn();
+                    String isbn = entrada.lerIsbn();
+
                     System.out.println("Digite a quantidade total do livro: ");
-                    quantidadeTotal = entrada.LerQuantidadeTotal();
-                    System.out.println("Digite a quantidade disponÃ­vel do livro: ");
-                    quantidadeDisponivel = entrada.LerQuantidadeDisponivel();
+                    int quantidadeTotal = entrada.lerQuantidadeTotal();
 
-                    LivroService.cadastrarLivro(id, nome, cpf, anoLancamento, categoria, isbn, quantidadeTotal, quantidadeDisponivel);
-                    loop = true;
+                    System.out.println("Digite a quantidade disponível do livro: ");
+                    int quantidadeDisponivel = entrada.lerQuantidadeDisponivel();
+
+                    try {
+                        LivroService livroService = new LivroService();
+                        livroService.cadastrarLivro(titulo, autor, anoLancamento, categoria, isbn, quantidadeTotal, quantidadeDisponivel);
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
-                }
 
-            case 2:
-                for (model.Livro livro : LivroService.getLivros()) {
-                    Livro.MostrarLivro();
-                }
-            case 3:
-                while (loop = false) {
-                    System.out.println("=========== CADASTRAR USUÃRIO ===========");
+                case 2:
+                    try {
+                        LivroService livroServiceListagem = new LivroService();
+                        livroServiceListagem.listarLivros();
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("=========== CADASTRAR USUÁRIO ===========");
                     System.out.print("Nome: ");
-                    nome = entrada.LerNome();
+                    String nome = entrada.lerNome();
+
                     System.out.print("\nCPF: ");
-                    cpf = entrada.LerCpf();
+                    String cpf = entrada.lerCpf();
+
+                    System.out.print("\nDigite seu melhor e-mail: ");
+                    String email = entrada.lerEmail();
+
                     System.out.print("\nDigite seu login: ");
-                    login = entrada.LerLogin();
+                    String login = entrada.lerLogin();
+
                     System.out.print("\nDigite a sua senha: ");
-                    senha = entrada.LerSenha();
-                    System.out.print("\nTipo de usuÃ¡rio: \n1 - UsuÃ¡rio\n2 - Admin: ");
-                    int tipoUsuario = entrada.LerTipoUsuario();
+                    String senha = entrada.lerSenha();
+
+                    System.out.print("\nTipo de usuário: \n1 - Usuário\n2 - Admin: ");
+                    int tipoUsuario = entrada.lerTipoUsuario();
 
                     if (tipoUsuario == 1) {
-                        usuarioService.cadastrarUsuario(1, nome, cpf, login, senha, enums.TipoUsuario.USER, 3);
-                        loop = true;
-                        break;
+                        try {
+                            UsuarioService usuarioService = new UsuarioService();
+                            usuarioService.cadastrarUsuario(nome, cpf, email, login, senha, TipoUsuario.USER);
+                        } catch (BibliotecaException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else if (tipoUsuario == 2) {
-                        usuarioService.cadastrarAdmin(1, nome, cpf, login, senha, enums.TipoUsuario.ADMIN);
-                        loop = true;
-                        break;
+                        try {
+                            UsuarioService usuarioService = new UsuarioService();
+                            usuarioService.cadastrarUsuario(nome, cpf, email, login, senha, TipoUsuario.ADMIN);
+                        } catch (BibliotecaException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
-                        System.out.println("OpÃ§Ã£o invÃ¡lida!");
-                        loop = false;
+                        System.out.println("Opção inválida!");
                     }
-                }
-                break;
-            case 4:
-                ServiceUsuario.listarUsuarios();
-                break;
+                    break;
 
-            case 5:
-                EmprestimoService.listarEmprestimo();
-                break;
-            case 6:
+                case 4:
+                    try {
+                        UsuarioService usuarioServiceListagem = new UsuarioService();
+                        usuarioServiceListagem.listarUsuarios();
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
 
-            case 0:
-                break;
+                case 5:
+                    try {
+                        EmprestimoService emprestimoService = new EmprestimoService();
+                        emprestimoService.listarEmprestimo();
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Digite o ID do usuário para ver o histórico: ");
+                    int idUsuario = entrada.lerId();
+                    try {
+                        EmprestimoService emprestimoServiceHistorico = new EmprestimoService();
+                        emprestimoServiceHistorico.listarHistoricoEmprestimo(idUsuario);
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 0:
+                    return;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
         }
-
     }
 }

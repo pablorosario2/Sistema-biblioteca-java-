@@ -1,15 +1,12 @@
-import main.java.br.com.biblioteca.*;
-import main.java.br.com.biblioteca.Menu.MenuPrincipal;
+package br.com.biblioteca;
+
+import br.com.biblioteca.menu.MenuPrincipal;
 
 public class Main {
 
-    // metodo principal
+    // método principal
     public static void main(String[] args) {
-    MenuPrincipal menuPrincipal = new MenuPrincipal();
-
-
-        // execucoes
-
+        MenuPrincipal menuPrincipal = new MenuPrincipal();
         menuPrincipal.iniciar();
     }
 }

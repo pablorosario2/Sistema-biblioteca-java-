@@ -1,34 +1,31 @@
-package main.java.br.com.biblioteca.validacao;
+package br.com.biblioteca.validacao;
 
-import main.java.br.com.biblioteca.model.Emprestimo;
-import main.java.br.com.biblioteca.service.LivroService;
-import main.java.br.com.biblioteca.service.UsuarioService;
+import br.com.biblioteca.exception.EmprestimoInvalidoException;
+import br.com.biblioteca.model.Livro;
+import br.com.biblioteca.model.Usuario;
 
 public class ValidarEmprestimo {
 
     // atributos
-    private model.Usuario usuario;
-    private model.Livro livro;
-    UsuarioService usuarioService = new UsuarioService();
-    LivroService livroService = new LivroService();
+    // métodos
+    public void descontarEmprestimo(Usuario usuario, Livro livro) {
+        verificarLimite(usuario);
+        verificarLivroDisponivel(livro);
 
-    // metodos
-    public void verificarLimite() {
+        usuario.setLimiteEmprestimo(usuario.getLimiteEmprestimo() - 1);
+        livro.setQuantidadeDisponivel(livro.getQuantidadeDisponivel() - 1);
+    }
 
+    public void verificarLimite(Usuario usuario) {
         if (usuario.getLimiteEmprestimo() <= 0) {
-            throw new IllegalArgumentException("Usuario nÃ£o tem mais emprestimo disponivel");
-        } else if (usuario.getLimiteEmprestimo() >= 0) {
-            int limiteemprestimo = usuario.getLimiteEmprestimo();
-            usuario.setLimiteEmprestimo(limiteemprestimo - 1);
+            throw new EmprestimoInvalidoException("Usuário não tem mais empréstimo disponível");
         }
     }
 
-    public void descontarEmprestimo(int id) {
-        model.Usuario usuario1 = usuarioService.buscarUsuarioPorId(id);
-        usuario1.setLimiteEmprestimo(usuario1.getLimiteEmprestimo() - 1);
-
-        model.Livro livro1 = livroService.buscarLivroPorId(id);
-        livro1.setQuantidadeDisponivel(livro1.getQuantidadeDisponivel() - 1);
-
+    public void verificarLivroDisponivel(Livro livro) {
+        if (livro.getQuantidadeDisponivel() <= 0) {
+            throw new EmprestimoInvalidoException("Livro indisponível para empréstimo");
+        }
     }
+
 }

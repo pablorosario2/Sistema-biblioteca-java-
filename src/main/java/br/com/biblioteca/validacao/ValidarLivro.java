@@ -1,30 +1,36 @@
-package validacao;
+package br.com.biblioteca.validacao;
 
-import model.Livro;
+import br.com.biblioteca.exception.ValidacaoException;
+import br.com.biblioteca.model.Livro;
 
 public class ValidarLivro {
 
-    // metodos
+    // métodos
     public void validarLivro(Livro livro) {
 
+        // verifica se o título foi informado
         if (livro.getTitulo() == null || livro.getTitulo().trim().isEmpty()) {
-            throw new IllegalArgumentException("O tÃ­tulo Ã© obrigatÃ³rio.");
+            throw new ValidacaoException("O título é obrigatório.");
         }
 
+        // verifica se o autor foi informado
         if (livro.getAutor() == null || livro.getAutor().trim().isEmpty()) {
-            throw new IllegalArgumentException("O autor Ã© obrigatÃ³rio.");
+            throw new ValidacaoException("O autor é obrigatório.");
         }
 
+        // verifica se o ano de lançamento tem 4 dígitos
         if (String.valueOf(livro.getAnoLancamento()).length() != 4) {
-            System.out.println("O ano deve ter 4 dÃ­gitos");
+            throw new ValidacaoException("O ano deve ter 4 dígitos");
         }
 
+        // verifica se a quantidade total não é negativa
         if (livro.getQuantidadeTotal() < 0) {
-            throw new IllegalArgumentException("Quantidade total invÃ¡lida.");
+            throw new ValidacaoException("Quantidade total inválida.");
         }
 
-        if (livro.getQuantidadeDisponivel() < 0 || livro.getQuantidadeDisponivel() < livro.getQuantidadeTotal()) {
-            throw new IllegalArgumentException("Quantidade disponÃ­vel invÃ¡lida.");
+        // verifica se a quantidade disponivel nao e negativa nem maior que a total
+        if (livro.getQuantidadeDisponivel() < 0 || livro.getQuantidadeDisponivel() > livro.getQuantidadeTotal()) {
+            throw new ValidacaoException("Quantidade disponível inválida.");
         }
     }
 }

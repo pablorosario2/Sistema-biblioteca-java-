@@ -1,6 +1,6 @@
-package model;
+package br.com.biblioteca.model;
 
-import enums.TipoUsuario;
+import br.com.biblioteca.enums.TipoUsuario;
 
 public class Usuario {
 
@@ -8,6 +8,7 @@ public class Usuario {
     private int id;
     private String nome;
     private String cpf;
+    private String email;
     private String login;
     private String senha;
     private TipoUsuario tipoUsuario;
@@ -21,6 +22,7 @@ public class Usuario {
             int id,
             String nome,
             String cpf,
+            String email,
             String login,
             String senha,
             TipoUsuario tipoUsuario,
@@ -28,37 +30,13 @@ public class Usuario {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.email = email;
         this.login = login;
         this.senha = senha;
         this.tipoUsuario = tipoUsuario;
         this.limiteEmprestimo = limiteEmprestimo;
     }
 
-    public Usuario(int id, String nome, String cpf, String login, String senha, enums.TipoUsuario tipoUsuario) {
-    }
-
-    // metodos
-    public void mostrarUsuario() {
-        System.out.println("ID: " + this.id);
-        System.out.println("Nome: " + this.nome);
-        System.out.println("CPF: " + this.cpf);
-        System.out.println("Login: " + this.login);
-        System.out.println("Tipo de Usuario: " + this.tipoUsuario);
-        System.out.println("Limite de Emprestimo: " + this.limiteEmprestimo);
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", login='" + login + '\'' +
-                ", senha='" + senha + '\'' +
-                ", tipoUsuario=" + tipoUsuario +
-                ", limiteEmprestimo=" + limiteEmprestimo +
-                '}';
-    }
 
     // gets
     public int getId() {
@@ -71,6 +49,10 @@ public class Usuario {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getLogin() {
@@ -102,6 +84,10 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setLogin(String login) {
         this.login = login;
     }
@@ -116,5 +102,13 @@ public class Usuario {
 
     public void setLimiteEmprestimo(int limiteEmprestimo) {
         this.limiteEmprestimo = limiteEmprestimo;
+    }
+
+    @Override
+    public String toString() {
+        // Define como o usuario aparece nas listagens do sistema.
+        return "ID: " + id +
+                "\nNome: " + nome +
+                "\nTipo de Usuario: " + tipoUsuario;
     }
 }

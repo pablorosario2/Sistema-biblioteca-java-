@@ -1,104 +1,114 @@
-package main.java.br.com.biblioteca.Menu;
+package br.com.biblioteca.menu;
 
-import main.java.br.com.biblioteca.service.*;
-import main.java.br.com.biblioteca.util.DataUtil;
-import main.java.br.com.biblioteca.validacao.*;
+import br.com.biblioteca.enums.TipoUsuario;
+import br.com.biblioteca.exception.BibliotecaException;
+import br.com.biblioteca.service.LivroService;
+import br.com.biblioteca.service.UsuarioService;
+import br.com.biblioteca.util.Entrada;
+import br.com.biblioteca.model.Usuario;
+import br.com.biblioteca.menu.MenuAdmin;
+import br.com.biblioteca.menu.MenuUsuario;
 
 public class MenuPrincipal {
 
-    // atributos
-    private LivroService LivroService;
-    private model.Livro Livro;
-
-    // metodos
+    // métodos
     public void iniciar() {
 
-        // servicos e utilitarios
-        UsuarioService usuarioService = new UsuarioService();
-        ValidarUsuario validarUsuario = new ValidarUsuario();
-        EmprestimoService emprestimoService = new EmprestimoService();
-        util.Entrada entrada = new util.Entrada();
-        DataUtil data = new DataUtil();
+        // serviços e utilitários
+        Entrada entrada = new Entrada();
 
-        // variaveis locais
-        int opcao;
-        int id;
-        String nome;
-        String cpf;
-        String login;
-        String senha;
-        boolean loop;
+        // Mantem o menu principal aberto ate o usuario escolher sair.
+        while (true) {
+            // menu
+            System.out.println();
+            System.out.println("============= biblioteca =============");
+            System.out.println("1 - Login");
+            System.out.println("2 - Cadastrar usuário");
+            System.out.println("3 - Listar livros disponíveis");
+            System.out.println("0 - Sair/Voltar");
+            System.out.println("=======================================");
+            int opcao = entrada.lerOpcao();
 
-        // menu
-        System.out.println("============= biblioteca =============");
-        System.out.println("1 - Login");
-        System.out.println("2 - Cadastrar usuÃ¡rio");
-        System.out.println("3 - Listar livros disponÃ­veis");
-        System.out.println("0 - Sair");
-        System.out.println("=======================================");
-        opcao = entrada.LerOpcao();
-
-        // opcoes
-        switch (opcao) {
-            case 1:
-                while (loop = false) {
-
+            // opções
+            switch (opcao) {
+                case 1:
                     System.out.println("=========== LOGIN ===========");
                     System.out.print("Digite seu login: ");
-                    login = entrada.LerLogin();
-                    System.out.print("\nDigite a sua senha: ");
-                    senha = entrada.LerSenha();
+                    String login = entrada.lerLogin();
+                    System.out.print("Digite a sua senha: ");
+                    String senha = entrada.lerSenha();
 
-                    if (validarUsuario.validarLogin(login, senha)) {
+                    try {
+                        UsuarioService usuarioService = new UsuarioService();
+                        Usuario usuarioLogado = usuarioService.validarLogin(login, senha);
+
                         System.out.println("Login realizado com sucesso!");
-                        loop = true;
-                    } else {
-                        System.out.println("Login ou senha invÃ¡lidos!");
-                        loop = false;
+
+                        // Depois do login, cada tipo de usuario vai para o seu menu.
+                        if (usuarioLogado.getTipoUsuario() == TipoUsuario.ADMIN) {
+                            new MenuAdmin().iniciar();
+                        } else if (usuarioLogado.getTipoUsuario() == TipoUsuario.USER) {
+                            new MenuUsuario().iniciar(usuarioLogado);
+                        }
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
-                }
 
-            case 2:
-                while (loop = false) {
-                    System.out.println("=========== CADASTRAR USUÃRIO ===========");
+                case 2:
+                    System.out.println("=========== CADASTRAR USUÁRIO ===========");
                     System.out.print("Nome: ");
-                    nome = entrada.LerNome();
+                    String nome = entrada.lerNome();
+
                     System.out.print("\nCPF: ");
-                    cpf = entrada.LerCpf();
+                    String cpf = entrada.lerCpf();
+
+                    System.out.print("\nDigite seu melhor e-mail: ");
+                    String email = entrada.lerEmail();
+
                     System.out.print("\nDigite seu login: ");
-                    login = entrada.LerLogin();
+                    login = entrada.lerLogin();
+
                     System.out.print("\nDigite a sua senha: ");
-                    senha = entrada.LerSenha();
-                    System.out.print("\nTipo de usuÃ¡rio: \n1 - UsuÃ¡rio\n2 - Admin: ");
-                    int tipoUsuario = entrada.LerTipoUsuario();
+                    senha = entrada.lerSenha();
+
+                    System.out.print("\nTipo de usuário: \n1 - Usuário\n2 - Admin: ");
+                    int tipoUsuario = entrada.lerTipoUsuario();
 
                     if (tipoUsuario == 1) {
-                        usuarioService.cadastrarUsuario(1, nome, cpf, login, senha, enums.TipoUsuario.USER, 3);
-                        loop = true;
-                        break;
+                        try {
+                            UsuarioService usuarioServiceCadastro = new UsuarioService();
+                            usuarioServiceCadastro.cadastrarUsuario(nome, cpf, email, login, senha, TipoUsuario.USER);
+                        } catch (BibliotecaException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else if (tipoUsuario == 2) {
-                        usuarioService.cadastrarAdmin(1, nome, cpf, login, senha, enums.TipoUsuario.ADMIN);
-                        loop = true;
-                        break;
+                        try {
+                            UsuarioService usuarioServiceCadastro = new UsuarioService();
+                            usuarioServiceCadastro.cadastrarUsuario(nome, cpf, email, login, senha, TipoUsuario.ADMIN);
+                        } catch (BibliotecaException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
-                        System.out.println("OpÃ§Ã£o invÃ¡lida!");
-                        loop = false;
+                        System.out.println("Opção inválida!");
                     }
+                    break;
 
-                }
-                break;
-            case 3:
-                for (model.Livro livro : LivroService.getLivros()) {
-                    if (Livro.getQuantidadeDisponivel() > 0) {
-                        Livro.MostrarLivro();
+                case 3:
+                    try {
+                        LivroService livroService = new LivroService();
+                        livroService.listarLivrosDisponiveis();
+                    } catch (BibliotecaException e) {
+                        System.out.println(e.getMessage());
                     }
-                }
-                break;
+                    break;
 
-            case 0:
-                break;
+                case 0:
+                    return;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
         }
-
     }
 }

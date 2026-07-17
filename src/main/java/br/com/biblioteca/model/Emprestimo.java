@@ -1,6 +1,6 @@
-package main.java.br.com.biblioteca.model;
+package br.com.biblioteca.model;
 
-import main.java.br.com.biblioteca.enums.StatusEmprestimo;
+import br.com.biblioteca.enums.StatusEmprestimo;
 
 import java.time.LocalDate;
 
@@ -87,5 +87,17 @@ public class Emprestimo {
 
     public void setStatusEmprestimo(StatusEmprestimo statusEmprestimo) {
         this.statusEmprestimo = statusEmprestimo;
+    }
+
+    @Override
+    public String toString() {
+        // Define como o emprestimo aparece nas listagens e historicos.
+        return "ID: " + id +
+                "\nID do Usuario: " + idUsuario +
+                "\nID do Livro: " + idLivro +
+                "\nData de Emprestimo: " + dataEmprestimo +
+                "\nData Prevista de Devolucao: " + dataPrevistaDevolucao +
+                "\nData de Devolucao: " + dataDevolucao +
+                "\nStatus: " + statusEmprestimo;
     }
 }

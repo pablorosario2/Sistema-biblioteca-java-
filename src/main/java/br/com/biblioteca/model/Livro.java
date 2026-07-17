@@ -1,6 +1,6 @@
-package model;
+package br.com.biblioteca.model;
 
-import enums.CategoriaLivro;
+import br.com.biblioteca.enums.CategoriaLivro;
 
 public class Livro {
 
@@ -36,32 +36,6 @@ public class Livro {
         this.isbn = isbn;
         this.quantidadeTotal = quantidadeTotal;
         this.quantidadeDisponivel = quantidadeDisponivel;
-    }
-
-    // metodos
-    public void MostrarLivro() {
-        System.out.println("ID: " + this.id);
-        System.out.println("Titulo: " + this.titulo);
-        System.out.println("Autor: " + this.autor);
-        System.out.println("Ano Lancamento: " + this.anoLancamento);
-        System.out.println("Categoria: " + this.categoria);
-        System.out.println("Quantidade de livros: " + this.quantidadeDisponivel);
-        System.out.println("ISBN: " + this.isbn);
-
-    }
-
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", anoLancamento=" + anoLancamento +
-                ", categoria=" + categoria +
-                ", isbn='" + isbn + '\'' +
-                ", quantidadeTotal=" + quantidadeTotal +
-                ", quantidadeDisponivel=" + quantidadeDisponivel +
-                '}';
     }
 
     // gets
@@ -128,5 +102,18 @@ public class Livro {
 
     public void setQuantidadeDisponivel(int quantidadeDisponivel) {
         this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    @Override
+    public String toString() {
+        // Define como o livro aparece quando usamos System.out.println(livro).
+        return "ID: " + id +
+                "\nTitulo: " + titulo +
+                "\nAutor: " + autor +
+                "\nAno de Lancamento: " + anoLancamento +
+                "\nCategoria: " + categoria +
+                "\nISBN: " + isbn +
+                "\nQuantidade Total: " + quantidadeTotal +
+                "\nQuantidade Disponivel: " + quantidadeDisponivel;
     }
 }
