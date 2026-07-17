@@ -1,40 +1,43 @@
+Eu ajustaria principalmente o final de **Observações**, além de corrigir alguns erros de português. Mantendo o estilo de README de iniciante, ficaria assim:
+
+````markdown
 # Sistema de Biblioteca em Java
 
 Este foi meu primeiro contato com um projeto mais completo em Java.
 
-A ideia principal foi praticar a linguagem criando um sistema simples de biblioteca, usando conceitos como classes, objetos, listas, menus no terminal, validacoes, excecoes personalizadas e salvamento de dados em arquivos `.txt`.
+A ideia principal foi praticar a linguagem criando um sistema simples de biblioteca, utilizando conceitos como classes, objetos, listas, menus no terminal, validações, exceções personalizadas e persistência de dados em arquivos `.txt`.
 
-O projeto ainda esta em desenvolvimento e foi feito com foco em aprendizado.
+O projeto foi desenvolvido com foco no aprendizado e na aplicação prática dos conceitos que venho estudando em Java.
 
 ## Objetivo do projeto
 
-Criar um sistema de biblioteca pelo terminal, onde seja possivel cadastrar usuarios, cadastrar livros, fazer login, realizar emprestimos, devolver livros e consultar historicos.
+Criar um sistema de biblioteca pelo terminal, onde seja possível cadastrar usuários e livros, realizar login, controlar empréstimos e devoluções e consultar históricos.
 
 ## Funcionalidades
 
-- Login de usuario e administrador
-- Cadastro de usuarios
+- Login de usuário e administrador
+- Cadastro de usuários
 - Cadastro de livros
-- Listagem de livros disponiveis
-- Listagem de usuarios
-- Emprestimo de livros
-- Devolucao de livros
-- Historico de emprestimos por usuario
+- Listagem de livros disponíveis
+- Listagem de usuários
+- Empréstimo de livros
+- Devolução de livros
+- Histórico de empréstimos por usuário
 - Salvamento e carregamento dos dados em arquivos `.txt`
 
 ## Conceitos praticados
 
-- Programacao Orientada a Objetos
+- Programação Orientada a Objetos (POO)
 - Classes e objetos
 - Encapsulamento
 - Enums
 - ArrayList
 - Menus com `while` e `switch`
 - Tratamento de erros com `try/catch`
-- Excecoes personalizadas
-- Separacao em camadas
+- Exceções personalizadas
+- Separação de responsabilidades em camadas
 - Leitura e escrita em arquivos `.txt`
-- Sobrescrita do metodo `toString()`
+- Sobrescrita do método `toString()`
 
 ## Estrutura do projeto
 
@@ -54,17 +57,17 @@ data/
   usuarios.txt
   livros.txt
   emprestimos.txt
-```
+````
 
-## Organizacao
+## Organização
 
-- `model`: classes principais do sistema, como `Livro`, `Usuario` e `Emprestimo`.
-- `service`: regras de negocio do sistema.
-- `repository`: leitura e escrita dos arquivos `.txt`.
-- `menu`: menus interativos exibidos no terminal.
-- `validacao`: validacoes de dados.
-- `exception`: excecoes personalizadas.
-- `util`: classes auxiliares.
+* `model`: classes principais do sistema, como `Livro`, `Usuario` e `Emprestimo`.
+* `service`: regras de negócio do sistema.
+* `repository`: leitura e escrita dos arquivos `.txt`.
+* `menu`: menus interativos exibidos no terminal.
+* `validacao`: validações dos dados do sistema.
+* `exception`: exceções personalizadas.
+* `util`: classes e métodos auxiliares.
 
 ## Como executar
 
@@ -76,7 +79,7 @@ javac -encoding UTF-8 -d out $files.FullName
 java -cp out br.com.biblioteca.Main
 ```
 
-Tambem e possivel abrir o projeto em uma IDE Java e executar a classe `Main`.
+Também é possível abrir o projeto em uma IDE Java e executar a classe `Main`.
 
 ## Dados de teste
 
@@ -87,25 +90,26 @@ Login: admin.teste
 Senha: SenhaAdmin123
 ```
 
-Usuario:
+Usuário:
 
 ```txt
 Login: usuario.teste
 Senha: SenhaUser123
 ```
 
-## Observacoes
+## Observações
 
-Este projeto foi feito para estudo, entao algumas partes ainda podem ser melhoradas.
+Este projeto foi desenvolvido para fins de estudo e representa meu primeiro contato com uma aplicação Java mais completa e organizada em diferentes camadas.
 
-Pontos que pretendo melhorar futuramente:
+Durante o desenvolvimento, busquei aplicar os conhecimentos que adquiri estudando Java e Programação Orientada a Objetos, além de pesquisar e aprender novos conceitos conforme surgiam desafios durante a construção do sistema.
 
-- Nao mostrar senha nas listagens
-- Melhorar a seguranca das senhas
-- Criar testes automatizados
-- Melhorar a leitura e escrita dos arquivos
-- Organizar melhor alguns fluxos internos
+Como é um projeto de aprendizado, algumas partes ainda podem ser aprimoradas e novas funcionalidades podem ser adicionadas futuramente.
 
 ## Status
 
-Projeto em desenvolvimento.
+Projeto finalizado.
+
+```
+
+Eu só faria uma mudança no **Status**: se você pretende adicionar a API de ISBN ou continuar melhorando o projeto, colocaria **`Versão inicial finalizada`** em vez de **`Projeto finalizado`**. Fica mais coerente com a possibilidade de evoluir o projeto depois.
+```
